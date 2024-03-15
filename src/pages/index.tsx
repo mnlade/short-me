@@ -1,6 +1,8 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
 
 import { api } from "~/utils/api";
 
@@ -16,16 +18,17 @@ export default function Home() {
       </Head>
       <main className=" flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#101010] to-[#090a12]">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="text-5xl font-extrabold tracking-tight text-[hsl(249,11%,48%)] sm:text-[5rem]">
+          <h1 className="text-5xl font-extrabold tracking-tight text-[hsl(253,5%,68%)] sm:text-[5rem]">
             Short <span className="text-[hsl(280,100%,70%)]">-</span> Me
           </h1>
           <p className="text-2xl text-[hsl(280,100%,70%)]">
             A simple URL shortener
           </p>
+          <div className="flex w-full max-w-sm items-center space-x-2">
+            <Input type="url" placeholder="Place your Url Here" />
+            <Button type="submit">Short-It</Button>
+          </div>
           <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
-              {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-            </p>
             <AuthShowcase />
           </div>
         </div>
@@ -39,7 +42,7 @@ function AuthShowcase() {
 
   const { data: secretMessage } = api.post.getSecretMessage.useQuery(
     undefined, // no input
-    { enabled: sessionData?.user !== undefined }
+    { enabled: sessionData?.user !== undefined },
   );
 
   return (
