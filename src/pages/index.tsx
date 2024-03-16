@@ -3,7 +3,6 @@ import Head from "next/head";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
-import { LogIn } from "~/components/auth";
 import { api } from "~/utils/api";
 import { ModeToggle } from "./components/ModeToggle";
 
@@ -30,7 +29,6 @@ export default function Home() {
             <Input type="url" placeholder="Place your Url Here" />
             <Button type="submit">Short-It</Button>
           </div>
-          <LogIn></LogIn>
           <div className="flex flex-col items-center gap-2">
             <AuthShowcase />
           </div>

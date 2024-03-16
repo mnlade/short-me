@@ -47,6 +47,7 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   },
+
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
     GithubProvider({
@@ -63,6 +64,10 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
+    pages: {
+      // custom sign in page
+      signIn: '/login',
+    },
 };
 
 /**
