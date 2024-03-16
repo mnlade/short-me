@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import { NavigationMenuDemo } from "./components/nav-menu";
 
-const Shortener: NextPage = () => {
+const Test: NextPage = () => {
   return (
     <NavigationMenuDemo>
       
@@ -9,4 +9,4 @@ const Shortener: NextPage = () => {
   );
 };
 
-export default Shortener;
+export default Test;

@@ -5,6 +5,7 @@ import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { api } from "~/utils/api";
 import { ModeToggle } from "./components/ModeToggle";
+import Shortener from "~/components/shortener";
 
 export default function Home() {
   const hello = api.post.hello.useQuery({ text: "from tRPC" });
@@ -25,10 +26,7 @@ export default function Home() {
             A simple but fast URL shortener
           </p>
           <ModeToggle />
-          <div className="flex w-full max-w-sm items-center space-x-2">
-            <Input type="url" placeholder="Place your Url Here" />
-            <Button type="submit">Short-It</Button>
-          </div>
+          <Shortener />
           <div className="flex flex-col items-center gap-2">
             <AuthShowcase />
           </div>
