@@ -3,47 +3,61 @@ import { db } from "~/server/db";
 
 import {
   createTRPCRouter,
-  protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-import crypto from 'crypto';
+import crypto from "crypto";
 
-export const urlRouter = createTRPCRouter({
-    createShortUrl: protectedProcedure
+export const createLinkRouter = createTRPCRouter({
+  createShortUrl: publicProcedure
     .input(
-        z.object({ 
-            url: z.string(),
-        })
+      z.object({
+        url: z.string(),
+      }),
     )
+    .mutation(async ({ input, ctx }) => {
+      // Function to generate a random short URL in base64
+      const generateShortUrl = () => {
+        return crypto.randomBytes(5).toString("base64").substring(0, 7);
+      };
 
-    .mutation(async ({input, ctx}) => {
-        // Función para generar un string aleatorio en base64
-        const generateShortUrl = () => {
-            return crypto.randomBytes(5).toString('base64').substring(0, 7);
-        }
-
-        // Función recursiva para comprobar que la URL corta no existe en la base de datos
-        const getUniqueShortUrl = async (): Promise<string> => {
-            const shortUrl = generateShortUrl();
-            const existingUrl = await db.link.findUnique({ where: { short: shortUrl } });
-
-            if (existingUrl) {
-                return getUniqueShortUrl();
-            } else {
-                return shortUrl;
-            }
-        }
-
-        const shortUrl = await getUniqueShortUrl();
-
-        const bigUrl = await db.link.create({
-            data: {
-                url: input.url,
-                createdBy: { connect: { id: ctx.session.user.id } },
-                short: shortUrl,
-            },
+      // Recursive function to check if the short URL is unique
+      const getUniqueShortUrl = async (): Promise<string> => {
+        const shortUrl = generateShortUrl();
+        const existingUrl = await db.link.findUnique({
+          where: { short: shortUrl },
         });
 
-        return bigUrl;
+        if (existingUrl) {
+          return getUniqueShortUrl();
+        } else {
+          return shortUrl;
+        }
+      };
+
+      const shortUrl = await getUniqueShortUrl();
+
+      const createLinkData: {
+        url: string;
+        short: string;
+        createdBy?: { connect: { id: string } };
+      } = {
+        url: input.url,
+        short: shortUrl,
+      };
+
+      // Check if a user is logged in and if they have an ID
+      if (ctx?.session?.user?.id) {
+        // If a user is logged in, associate the created link with that user
+        createLinkData.createdBy = { connect: { id: ctx.session.user.id } };
+      } else {
+        // If no user is logged in, associate the created link with the anonymous user
+        createLinkData.createdBy = { connect: { id: "anonymous" } };
+      }
+
+      const createLink = await db.link.create({
+        data: createLinkData,
+      });
+
+      return createLink;
     }),
 });

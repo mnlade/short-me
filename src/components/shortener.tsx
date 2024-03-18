@@ -8,7 +8,7 @@ import { api } from '~/utils/api';
 const Shortener: React.FC = () => {
     const [bigurl, setUrl] = useState('');
 
-    const createShortUrlMutation = api.urlRouter.createShortUrl.useMutation()
+    const createShortUrlMutation = api.createLinkRouter.createShortUrl.useMutation()
 
     function createShortUrl() {
         createShortUrlMutation.mutate({
@@ -22,8 +22,8 @@ const Shortener: React.FC = () => {
                         e.preventDefault();
                         createShortUrl();
                     }}>
-            <Input required id= "bigurl" type="url" placeholder="Place your Url Here" onChange={(e) => setUrl(e.target.value)} />
-            <Button type="submit">Short-It</Button>
+                <Input required id= "bigurl" type="url" placeholder="Place your Url Here" onChange={(e) => setUrl(e.target.value)} />
+                <Button type="submit">Short-It</Button>
             </form>
           
     );

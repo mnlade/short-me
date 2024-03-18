@@ -1,6 +1,6 @@
 import { postRouter } from "~/server/api/routers/post";
 import { createTRPCRouter } from "~/server/api/trpc";
-import { urlRouter } from "~/server/api/routers/shortener";
+import { createLinkRouter } from "~/server/api/routers/shortener";
 
 /**
  * This is the primary router for your server.
@@ -9,7 +9,7 @@ import { urlRouter } from "~/server/api/routers/shortener";
  */
 export const appRouter = createTRPCRouter({
   post: postRouter,
-  urlRouter,
+  createLinkRouter,
 });
 
 // export type definition of API
