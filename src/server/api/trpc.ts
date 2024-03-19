@@ -16,21 +16,7 @@ import { ZodError } from "zod";
 import { getServerAuthSession } from "~/server/auth";
 import { db } from "~/server/db";
 
-// Function to delete anonymous links
-const deleteAnonymousLinks = async () => {
-  const links = await db.link.findMany({
-    where: { createdBy: { id: "anonymous" } },
-  });
-  if (links.length > 0) {
-    await db.link.deleteMany({
-      where: { createdBy: { id: "anonymous" } },
-    });
-    console.log('Anonymous links deleted successfully.');
-  }
-}
 
-// Run deleteAnonymousLinks every 5 minutes
-setInterval(deleteAnonymousLinks, 5 * 60 * 1000);
 
 /**
  * 1. CONTEXT

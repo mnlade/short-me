@@ -63,14 +63,27 @@ export const createLinkRouter = createTRPCRouter({
     ),
 });
 
-export const deleteAnonymousLinks = async () => {
-  const links = await db.link.findMany({
-    where: { createdBy: { id: "anonymous" } },
-    });
-    if (links) {
-      await db.link.deleteMany({
-        where: { createdBy: { id: "anonymous" } },
-      });
-    }   
-}
 
+// Function to delete anonymous links
+const deleteAnonymousLinks = async () => {
+    const fiveMinutesAgo = new Date(Date.now() - 30 * 60 * 1000); // Calculating the time 30 minutes ago
+    const links = await db.link.findMany({
+      where: { 
+        createdBy: { id: "anonymous" },
+        createdAt: { lte: fiveMinutesAgo } // Check if createdAt is less than or equal to fiveMinutesAgo
+      },
+    });
+    if (links.length > 0) {
+      await db.link.deleteMany({
+        where: { 
+          createdBy: { id: "anonymous" },
+          createdAt: { lte: fiveMinutesAgo } // Again, ensuring we're deleting only the links created at least 5 minutes ago
+        },
+      });
+      console.log('Anonymous links deleted successfully.');
+    }
+  }
+  
+  // Run deleteAnonymousLinks every 5 minutes
+  setInterval(deleteAnonymousLinks, 5 * 60 * 1000);
+  
