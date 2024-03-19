@@ -59,5 +59,18 @@ export const createLinkRouter = createTRPCRouter({
       });
 
       return createLink;
-    }),
+    }
+    ),
 });
+
+export const deleteAnonymousLinks = async () => {
+  const links = await db.link.findMany({
+    where: { createdBy: { id: "anonymous" } },
+    });
+    if (links) {
+      await db.link.deleteMany({
+        where: { createdBy: { id: "anonymous" } },
+      });
+    }   
+}
+
