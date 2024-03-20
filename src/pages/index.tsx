@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { api } from "~/utils/api";
-import { ModeToggle } from "./components/ModeToggle";
+import { ModeToggle } from "~/components/ModeToggle";
 import Shortener from "~/components/shortener";
 import DashCard from "~/components/dash-card";
 
@@ -20,7 +20,7 @@ export default function Home() {
       </Head>
       <main className=" flex min-h-screen flex-col items-center justify-center ">
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          <h1 className="] text-5xl font-extrabold tracking-tight sm:text-[5rem]">
+          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
             Short <span className="text-[hsl(280,100%,70%)]">-</span> Me
           </h1>
           <p className="text-2xl text-[hsl(280,100%,70%)]">

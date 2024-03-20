@@ -1,4 +1,4 @@
-import { string, z } from "zod";
+import { z } from "zod";
 import { db } from "~/server/db";
 
 import {
@@ -6,7 +6,6 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 import crypto from "crypto";
-import { url } from "inspector";
 
 export const createLinkRouter = createTRPCRouter({
   createShortUrl: publicProcedure
@@ -88,26 +87,26 @@ const deleteAnonymousLinks = async () => {
   // Run deleteAnonymousLinks every 5 minutes
   setInterval(deleteAnonymousLinks, 5 * 60 * 1000);
 
-  // export const redirectRouter = createTRPCRouter({
-  //   redirect: publicProcedure
-  //     .input(
-  //       z.object({
-  //         url: z.string(),
-  //       }),
-  //     )        
-  //     .query(async ({ input }) => {
-  //       const link = await db.link.findUnique({
-  //         where: {
-  //           short: input.url, // Accessing 'url' property from input object
-  //         },
-  //       });
+  export const redirectRouter = createTRPCRouter({
+    redirect: publicProcedure
+      .input(
+        z.object({
+          url: z.string(),
+        }),
+      )
+        .query(async ({ input }) => {
+        const link = await db.link.findUnique({
+          where: {
+            short: input.url, // Accessing 'url' property from input object
+          },
+        });
 
-  //       if (!link) {
-  //         throw new Error("Link not found");
-  //       }
+        if (!link) {
+          throw new Error("Link not found");
+        }
 
-  //       return link.url;
-  //     }),
-  // });
+        return link.url;
+      }),
+  });
   
     

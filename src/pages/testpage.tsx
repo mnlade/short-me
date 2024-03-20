@@ -1,5 +1,5 @@
 import { type NextPage } from "next";
-import { NavigationMenuDemo } from "./components/nav-menu";
+import { NavigationMenuDemo } from "~/components/nav-menu";
 
 const Test: NextPage = () => {
   return (
