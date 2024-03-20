@@ -1,5 +1,5 @@
-import { NextPage } from "next";
-import DashCard from "~/components/dash-card";
+import { type NextPage } from "next";
+import DashCard from "~/components/dashcard";
 
 const Dash: NextPage = () => {
   return (

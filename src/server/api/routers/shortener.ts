@@ -85,8 +85,10 @@ const deleteAnonymousLinks = async () => {
   }
   
   // Run deleteAnonymousLinks every 5 minutes
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   setInterval(deleteAnonymousLinks, 5 * 60 * 1000);
 
+  
   export const redirectRouter = createTRPCRouter({
     redirect: publicProcedure
       .input(

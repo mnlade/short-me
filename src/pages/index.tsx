@@ -1,16 +1,11 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
-import Link from "next/link";
 import { Button } from "~/components/ui/button";
-import { Input } from "~/components/ui/input";
-import { api } from "~/utils/api";
 import { ModeToggle } from "~/components/ModeToggle";
 import Shortener from "~/components/shortener";
-import DashCard from "~/components/dash-card";
+import DashCard from "~/components/dashcard";
 
 export default function Home() {
-  const hello = api.post.hello.useQuery({ text: "from tRPC" });
-
   return (
     <>
       <Head>
@@ -46,12 +41,6 @@ export default function Home() {
 
 function AuthShowcase() {
   const { data: sessionData } = useSession();
-
-  const { data: secretMessage } = api.post.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined },
-  );
-
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl">
