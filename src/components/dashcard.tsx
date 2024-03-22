@@ -11,13 +11,13 @@ interface DashCardProps {
 
 const DashCard: React.FC<DashCardProps> = ({ avatarSrc, username, shorturl, url }) => {
   return (
-    <div className="rounded-lg border bg-card text-card-foreground shadow-md w-96 m4">
+    <div className="flex w-full max-w-sm rounded-lg border bg-card text-card-foreground shadow-md m4 truncate">
       <div className="flex m-4">
         <Avatar>
           <AvatarImage src={avatarSrc} />
           <AvatarFallback>{username[0]}</AvatarFallback>
         </Avatar>
-        <div className="pl-4 mr-3 flex flex-col max-w-80">
+        <div className="pl-4 flex flex-col max-w-72">
           <h3 className="text-m font-semibold">{shorturl}</h3>
           <p className="text-sm text-muted-foreground truncate">{url}</p>
         </div>

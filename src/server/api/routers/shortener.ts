@@ -66,7 +66,7 @@ export const createLinkRouter = createTRPCRouter({
 
 // Function to delete anonymous links
 const deleteAnonymousLinks = async () => {
-    const fiveMinutesAgo = new Date(Date.now() - 30 * 60 * 1000); // Calculating the time 30 minutes ago
+    const fiveMinutesAgo = new Date(Date.now() - 1 * 10 * 1000); // Calculating the time 30 minutes ago
     const links = await db.link.findMany({
       where: { 
         createdBy: { id: "anonymous" },
@@ -85,9 +85,11 @@ const deleteAnonymousLinks = async () => {
   }
   
   // Run deleteAnonymousLinks every 5 minutes
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  setInterval(deleteAnonymousLinks, 5 * 60 * 1000);
-
+  setInterval(() => {
+    void deleteAnonymousLinks();
+    return undefined;
+  }, 1 * 10 * 1000);
+  // issue: check function its not working when deployed to vercel but works locally
   
   export const redirectRouter = createTRPCRouter({
     redirect: publicProcedure
