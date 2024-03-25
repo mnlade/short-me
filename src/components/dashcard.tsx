@@ -1,4 +1,7 @@
 import React from "react";
+import { Button } from "~/components/ui/button";
+import { MdModeEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 
@@ -9,21 +12,43 @@ interface DashCardProps {
   url: string;
 }
 
-const DashCard: React.FC<DashCardProps> = ({ avatarSrc, username, shorturl, url }) => {
+const DashCard: React.FC<DashCardProps> = ({
+  avatarSrc,
+  username,
+  shorturl,
+  url,
+}) => {
   return (
-    <div className="flex w-full max-w-sm rounded-lg border bg-card text-card-foreground shadow-md m4 truncate">
-      <div className="flex m-4">
-        <Avatar>
-          <AvatarImage src={avatarSrc} />
-          <AvatarFallback>{username[0]}</AvatarFallback>
-        </Avatar>
-        <div className="pl-4 flex flex-col max-w-72">
-          <h3 className="text-m font-semibold">{shorturl}</h3>
-          <p className="text-sm text-muted-foreground truncate">{url}</p>
+<div className="m-4 grid max-w-sm grid-cols-5 gap-4 rounded-lg border bg-card text-card-foreground shadow-md">
+  <div className="col-span-1 row-span-2 m-auto flex items-center justify-center">
+    <Avatar>
+      <AvatarImage src={avatarSrc} />
+      <AvatarFallback>{username[0]}</AvatarFallback>
+    </Avatar>
+  </div>
+  <div className="col-span-4 row-span-2 flex flex-col p-3 pl-0">
+    <div className="flex items-center justify-between">
+      <span className="text-m font-semibold">{shorturl}</span>
+      <div className="flex space-x-1 items-start">
+        <div className="flex-shrink-0"> {/* Agregar flex-shrink-0 */}
+          <Button variant="outline" size="icon" className="h-6 w-6">
+            <MdModeEdit className="h-4 w-4" />
+          </Button>
+        </div>
+        <div className="flex-shrink-0"> {/* Agregar flex-shrink-0 */}
+          <Button variant="outline" size="icon" className="h-6 w-6">
+            <MdDelete className="h-4 w-4" />
+          </Button>
         </div>
       </div>
     </div>
+    <p className="overflow-hidden overflow-ellipsis whitespace-nowrap text-sm text-muted-foreground">
+      {url}
+    </p>
+  </div>
+</div>
+
   );
-}
+};
 
 export default DashCard;

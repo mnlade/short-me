@@ -85,11 +85,8 @@ const deleteAnonymousLinks = async () => {
   }
   
   // Run deleteAnonymousLinks every 5 minutes
-  setInterval(() => {
-    void deleteAnonymousLinks();
-    return undefined;
-  }, 1 * 10 * 1000);
-  // issue: check function its not working when deployed to vercel but works locally
+  setInterval(deleteAnonymousLinks, 1 * 10 * 1000);
+  // issue:check function its not working when deployed to vercel but works locally
   
   export const redirectRouter = createTRPCRouter({
     redirect: publicProcedure

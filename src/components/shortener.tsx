@@ -17,15 +17,24 @@ const Shortener: React.FC = () => {
         });
     }
     return (
-        
-            <form className="flex w-full max-w-sm items-center space-x-2" onSubmit={(e) => {
-                        e.preventDefault();
-                        createShortUrl();
-                    }}>
-                <Input required id= "bigurl" type="url" placeholder="Place your Url Here" onChange={(e) => setUrl(e.target.value)} />
-                <Button type="submit">Short-It</Button>
-            </form>
-          
+        <form
+            className="flex w-full max-w-sm items-center space-x-2"
+            onSubmit={(e) => {
+                e.preventDefault();
+                createShortUrl();
+                setUrl(''); // Clear the input value
+            }}
+        >
+            <Input
+                required
+                id="bigurl"
+                type="url"
+                placeholder="Place your Url Here"
+                value={bigurl} // Set the input value to the state value
+                onChange={(e) => setUrl(e.target.value)}
+            />
+            <Button type="submit">Short-It</Button>
+        </form>
     );
 };
 

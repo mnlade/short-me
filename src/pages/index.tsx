@@ -23,16 +23,24 @@ export default function Home() {
           </p>
           <ModeToggle />
           <Shortener />
-          <DashCard
-            avatarSrc="https://avatars.githubusercontent.com/u/145766389?s=96&v=4"
-            username="mnlade"
-            shorturl="short-me/l/qwer123"
-            url="https://github.com/mnlade/short-me"
-          />
+          <span>
+            <DashCard
+              avatarSrc="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
+              username="mnlade"
+              shorturl="short-me/l/qwer123"
+              url="https://github.com/mnlade/short-me"
+            />
+
+            <DashCard
+              avatarSrc="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
+              username="mnlade"
+              shorturl="short-me/l/qwer123"
+              url="https://github.com/mnlade/short-meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+            />
+          </span>
           <div className="flex flex-col items-center gap-2">
             <AuthShowcase />
           </div>
-          
         </div>
       </main>
     </>
