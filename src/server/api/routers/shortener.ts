@@ -59,8 +59,26 @@ export const createLinkRouter = createTRPCRouter({
       });
 
       return createLink;
-    }
-    ),
+    }),
+  getLongUrl: publicProcedure
+    .input(
+      z.object({
+        url: z.string(),
+      }),
+    )
+    .query(async ({ input }) => {
+      const link = await db.link.findUnique({
+        where: {
+          short: input.url,
+        },
+      });
+
+      if (!link) {
+        throw new Error("Link not found");
+      }
+
+      return link.url;
+    }),
 });
 
 
@@ -85,29 +103,7 @@ const deleteAnonymousLinks = async () => {
   }
   
   // Run deleteAnonymousLinks every 5 minutes
-  setInterval(deleteAnonymousLinks, 1 * 10 * 1000);
+  // setInterval(deleteAnonymousLinks, 1 * 10 * 1000);
   // issue:check function its not working when deployed to vercel but works locally
   
-  export const redirectRouter = createTRPCRouter({
-    redirect: publicProcedure
-      .input(
-        z.object({
-          url: z.string(),
-        }),
-      )
-        .query(async ({ input }) => {
-        const link = await db.link.findUnique({
-          where: {
-            short: input.url, // Accessing 'url' property from input object
-          },
-        });
-
-        if (!link) {
-          throw new Error("Link not found");
-        }
-
-        return link.url;
-      }),
-  });
   
-    
