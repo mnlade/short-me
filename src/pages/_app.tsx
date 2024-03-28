@@ -17,24 +17,6 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
-  const router = useRouter();
-  const [slug, setSlug] = useState<string>("");
-
-  useEffect(() => {
-    const slugFromPath = router.asPath.split("/l/")[1];
-    if (slugFromPath) {
-      setSlug(slugFromPath);
-    }
-  }, [router.asPath]);
-
-
- const {data} = api.createLinkRouter.getLongUrl.useQuery({ url: slug });
-
-
-  if (data) {
-    void router.push(data);
-  }
-
   return (
     <SessionProvider session={session}>
       <ThemeProvider

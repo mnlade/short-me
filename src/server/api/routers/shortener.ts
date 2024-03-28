@@ -60,25 +60,7 @@ export const createLinkRouter = createTRPCRouter({
 
       return createLink;
     }),
-  getLongUrl: publicProcedure
-    .input(
-      z.object({
-        url: z.string(),
-      }),
-    )
-    .query(async ({ input }) => {
-      const link = await db.link.findUnique({
-        where: {
-          short: input.url,
-        },
-      });
 
-      if (!link) {
-        throw new Error("Link not found");
-      }
-
-      return link.url;
-    }),
 });
 
 
