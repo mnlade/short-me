@@ -24,9 +24,10 @@ export default function Home() {
           </p>
 
           <ModeToggle />
-          <Shortener />
+          
         </div>
-        <div className="container flex flex-col items-center justify-center px-4 ">
+        <div className="container flex flex-col items-center justify-center px-4">
+        <Shortener />
           <DashCard
             avatarSrc="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
             username="mnlade"
