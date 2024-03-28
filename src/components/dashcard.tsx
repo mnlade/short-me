@@ -19,7 +19,7 @@ const DashCard: React.FC<DashCardProps> = ({
   url,
 }) => {
   return (
-<div className="m-4 grid max-w-sm grid-cols-5 gap-4 rounded-lg border bg-card text-card-foreground shadow-md">
+<div className="m-4 grid w-[370px] grid-cols-5 gap-4 rounded-lg border bg-card text-card-foreground shadow-md">
   <div className="col-span-1 row-span-2 m-auto flex items-center justify-center">
     <Avatar>
       <AvatarImage src={avatarSrc} />
@@ -28,7 +28,7 @@ const DashCard: React.FC<DashCardProps> = ({
   </div>
   <div className="col-span-4 row-span-2 flex flex-col p-3 pl-0">
     <div className="flex items-center justify-between">
-      <span className="text-m font-semibold">{shorturl}</span>
+      <p className="text-m font-semibold -mt-1">{shorturl}</p>
       <div className="flex space-x-1 items-start">
         <div className="flex-shrink-0"> {/* Agregar flex-shrink-0 */}
           <Button variant="outline" size="icon" className="h-6 w-6">
@@ -42,7 +42,7 @@ const DashCard: React.FC<DashCardProps> = ({
         </div>
       </div>
     </div>
-    <p className="overflow-hidden overflow-ellipsis whitespace-nowrap text-sm text-muted-foreground">
+      <p className="overflow-hidden overflow-ellipsis whitespace-nowrap text-sm text-muted-foreground">
       {url}
     </p>
   </div>

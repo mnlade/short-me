@@ -18,7 +18,7 @@ const Shortener: React.FC = () => {
     }
     return (
         <form
-            className="flex w-full max-w-sm items-center space-x-2"
+            className="flex w-[370px] items-center space-x-2"
             onSubmit={(e) => {
                 e.preventDefault();
                 createShortUrl();

@@ -4,6 +4,7 @@ import { Button } from "~/components/ui/button";
 import { ModeToggle } from "~/components/ModeToggle";
 import Shortener from "~/components/shortener";
 import DashCard from "~/components/dashcard";
+import { SkeletonDashCard } from "~/components/skeletonDashcard";
 
 export default function Home() {
   return (
@@ -21,26 +22,23 @@ export default function Home() {
           <p className="text-2xl text-[hsl(280,100%,70%)]">
             A simple but fast URL shortener
           </p>
+
           <ModeToggle />
           <Shortener />
-          <span>
-            <DashCard
-              avatarSrc="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
-              username="mnlade"
-              shorturl="short-me/l/qwer123"
-              url="https://github.com/mnlade/short-me"
-            />
-
-            <DashCard
-              avatarSrc="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
-              username="mnlade"
-              shorturl="short-me/l/qwer123"
-              url="https://github.com/mnlade/short-meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
-            />
-          </span>
-          <div className="flex flex-col items-center gap-2">
-            <AuthShowcase />
-          </div>
+        </div>
+        <div className="container flex flex-col items-center justify-center px-4 ">
+          <DashCard
+            avatarSrc="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
+            username="mnlade"
+            shorturl="short-me/l/qwer123"
+            url="https://github.com/mnlade/short-me"
+          />
+          <SkeletonDashCard />
+          <SkeletonDashCard />
+          <SkeletonDashCard />
+        </div>
+        <div className="flex flex-col items-center gap-2">
+          <AuthShowcase />
         </div>
       </main>
     </>
