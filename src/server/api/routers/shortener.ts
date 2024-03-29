@@ -60,7 +60,27 @@ export const createLinkRouter = createTRPCRouter({
 
       return createLink;
     }),
-
+    getLinkByUrl: publicProcedure
+    .input(
+      z.object({
+        url: z.string(),
+      }),
+    )
+    .query(async ({ input }) => {
+      const data = await db.link.findFirst({
+        where: {
+          url: {
+            equals: input.url,
+          },
+        },
+        orderBy: {       
+          createdAt: 'desc',
+        },
+      });
+  
+      return data;
+    }),
+    
 });
 
 

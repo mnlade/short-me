@@ -8,13 +8,14 @@ import { SkeletonDashCard } from "~/components/skeletonDashcard";
 import { useToast } from "~/components/ui/use-toast"
 import { ToastAction } from "~/components/ui/toast"
 
+
 const ShortenerWithCard: React.FC = () => {
     const [bigurl, setUrl] = useState('');
     const [cards, setCards] = useState<JSX.Element[]>([
         <DashCard key="default"
             avatarSrc="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
             username="mnlade"
-            shorturl="short-me/l/qwer123"
+            shorturl="l/LHIFYt4"
             url="https://github.com/mnlade/short-me"
         />,
         <SkeletonDashCard key="skeleton1" />,
@@ -29,19 +30,21 @@ const ShortenerWithCard: React.FC = () => {
             url: bigurl
         });
     }
+    const { data } = api.createLinkRouter.getLinkByUrl.useQuery({ url: bigurl });
+    console.log(data);
 
     const fetchUpdatedData = async () => {
-        // Here you would fetch updated data from the server based on the created short URL
-        // This is a placeholder for fetching the updated data
+        // Wait for the short URL to be created
         const updatedData = {
-            avatarSrc: 'https://example.com/avatar.jpg',
-            username: 'New Username',
-            shorturl: 'short-me/l/newurl',
-            url: 'https://example.com/newurl',
+            avatarSrc: data?.short, //temporary placeholder for the avatar replace with a favicon searcher
+            username: data?.creatorId,
+            shorturl: "l/" + data?.short,
+            url: data?.url,
         };
 
         return updatedData;
     };
+    
 
     const addNewCard = async () => {
         createShortUrl();
@@ -51,12 +54,20 @@ const ShortenerWithCard: React.FC = () => {
 
         // Create the new card with the obtained data
         const newCard = (
-            <DashCard key={updatedData.shorturl} {...updatedData} />
+            <DashCard
+                key={updatedData.shorturl}
+                avatarSrc={updatedData.avatarSrc ?? ''}
+                username={updatedData.username ?? ''}
+                shorturl={updatedData.shorturl ?? ''}
+                url={updatedData.url ?? ''}
+            />
         );
 
         // Update the card list by replacing the first skeleton with the new card
         const newCards = [...cards];
-        const skeletonIndex = newCards.findIndex(card => card.type === SkeletonDashCard);
+        const skeletonIndex = newCards.findIndex(
+            (card) => card.type === SkeletonDashCard
+        );
         if (skeletonIndex !== -1) {
             newCards.splice(skeletonIndex, 1, newCard);
             setCards(newCards);
@@ -88,7 +99,7 @@ const ShortenerWithCard: React.FC = () => {
                     onClick={() => {
                         toast({
                             description: "The link has successfully created.",
-                            action: <ToastAction altText="Copy" onClick={() => console.log("clicked")}>Copy It</ToastAction>
+                            action: <ToastAction altText="Copy" onClick={() => console.log("clicked")}>Copy It</ToastAction> // Add the action correctly
                         });
                     }}
                 >Short-It</Button>

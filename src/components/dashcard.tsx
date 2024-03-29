@@ -28,7 +28,12 @@ const DashCard: React.FC<DashCardProps> = ({
       </div>
       <div className="col-span-4 row-span-2 flex flex-col p-3 pl-0">
         <div className="flex items-center justify-between">
-          <p className="text-m font-semibold -mt-">{shorturl}</p>
+          <a
+            href={`https://short-me-omega.vercel.app/l/${shorturl}`}
+            className="text-m overflow-hidden overflow-ellipsis whitespace-nowrap font-semibold"
+          >
+            {shorturl}
+          </a>
           <div className="flex items-start space-x-1">
             <div>
               <MdModeEdit className="-mt-2 h-4 w-4 hover:scale-125 " />
