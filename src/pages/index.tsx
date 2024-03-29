@@ -2,9 +2,8 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import { Button } from "~/components/ui/button";
 import { ModeToggle } from "~/components/ModeToggle";
-import Shortener from "~/components/shortener";
-import DashCard from "~/components/dashcard";
-import { SkeletonDashCard } from "~/components/skeletonDashcard";
+import ShortenerWithCard from "~/components/shortenerWithCard";
+
 
 export default function Home() {
   return (
@@ -26,18 +25,8 @@ export default function Home() {
           <ModeToggle />
           
         </div>
-        <div className="container flex flex-col items-center justify-center px-4">
-        <Shortener />
-          <DashCard
-            avatarSrc="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
-            username="mnlade"
-            shorturl="short-me/l/qwer123"
-            url="https://github.com/mnlade/short-me"
-          />
-          <SkeletonDashCard />
-          <SkeletonDashCard />
-          <SkeletonDashCard />
-        </div>
+        <ShortenerWithCard />
+         
         <div className="flex flex-col items-center gap-2">
           <AuthShowcase />
         </div>

@@ -6,6 +6,8 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "~/components/ui/theme-provider";
 import { api } from "~/utils/api";
 import "~/styles/globals.css";
+import { Toaster } from "~/components/ui/toaster"
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,6 +29,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         <main className={`font-sans ${inter.variable}`}>
           <Component {...pageProps} />
         </main>
+        <Toaster />
       </ThemeProvider>
     </SessionProvider>
   );

@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { useState } from 'react';
 import { api } from '~/utils/api';
-
 
 const Shortener: React.FC = () => {
     const [bigurl, setUrl] = useState('');
@@ -13,28 +11,29 @@ const Shortener: React.FC = () => {
     function createShortUrl() {
         createShortUrlMutation.mutate({
             url: bigurl
-        
         });
     }
     return (
-        <form
-            className="flex w-[370px] m-2 items-center space-x-2"
-            onSubmit={(e) => {
-                e.preventDefault();
-                createShortUrl();
-                setUrl(''); // Clear the input value
-            }}
-        >
-            <Input
-                required
-                id="bigurl"
-                type="url"
-                placeholder="Place your Url Here"
-                value={bigurl} // Set the input value to the state value
-                onChange={(e) => setUrl(e.target.value)}
-            />
-            <Button type="submit">Short-It</Button>
-        </form>
+        <div className="container flex flex-col items-center justify-center px-4">
+            <form
+                className="flex w-[370px] m-2 items-center space-x-2"
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    createShortUrl();
+                    setUrl(''); // Clear the input value
+                }}
+            >
+                <Input
+                    required
+                    id="bigurl"
+                    type="url"
+                    placeholder="Place your Url Here"
+                    value={bigurl} // Set the input value to the state value
+                    onChange={(e) => setUrl(e.target.value)}
+                />
+                <Button type="submit">Short-It</Button>
+            </form>       
+        </div>
     );
 };
 
