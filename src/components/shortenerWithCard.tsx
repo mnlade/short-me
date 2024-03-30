@@ -9,6 +9,7 @@ import { useToast } from "~/components/ui/use-toast"
 import { ToastAction } from "~/components/ui/toast"
 
 
+
 const ShortenerWithCard: React.FC = () => {
     const [bigurl, setUrl] = useState('');
     const [cards, setCards] = useState<JSX.Element[]>([
@@ -41,7 +42,9 @@ const ShortenerWithCard: React.FC = () => {
             shorturl: "l/" + data?.short,
             url: data?.url,
         };
-
+        if (data === undefined) {
+            return updatedData;
+        }
         return updatedData;
     };
     
