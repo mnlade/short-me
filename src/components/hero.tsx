@@ -5,11 +5,11 @@ const Hero: React.FC = () => {
     <div className="container flex max-w-[550px] flex-col items-center justify-center gap-4 ">
       <h2 className="mb-2 text-center text-5xl font-bold">
         Simplify your{" "}
-        <span className="bg-gradient-to-r from-sky-500 via-sky-600 to-sky-500 bg-clip-text text-transparent">
+        <span className=" text-sky-500">
           links
         </span>{" "}
         amplify your{" "}
-        <span className="bg-gradient-to-r from-sky-500 via-sky-600 to-sky-500 bg-clip-text text-transparent">
+        <span className=" text-sky-500">
           message!
         </span>
       </h2>
