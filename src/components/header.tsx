@@ -1,20 +1,34 @@
-import React from 'react';
+import React from "react";
+import AuthShowcase from "./authShowCase";
+import { ModeToggle } from "./ModeToggle";
+import Image from "next/image";
+import Link from "next/link";
 
 const Header: React.FC = () => {
-    return (
-        <header className="header">
-            <div className="logo">
-                {/* Add your logo component here */}
-            </div>
-            <div className="text">
-                {/* Add your text component here */}
-            </div>
-            <div className="actions">
-                <button>Sign In</button>
-                <button>Toggle Modal</button>
-            </div>
-        </header>
-    );
+  return (
+    <header>
+      <div className="flex items-center justify-between py-3 px-4 lg:mx-80 md:mx-20 sm:mx-2">
+        <Link href="/">
+          <div className="flex items-center">
+            <h1 className="text-2xl font-extrabold tracking-tight">
+              ShortMe
+            </h1>
+            <Image
+              className="mx-2 mb-1"
+              src="/logoshortme.png"
+              width={32}
+              height={32}
+              alt="Logo"
+            />
+          </div>
+        </Link>
+        <div className="flex items-center space-x-2">
+          <ModeToggle />
+          <AuthShowcase />
+        </div>
+      </div>
+    </header>
+  );
 };
 
 export default Header;
