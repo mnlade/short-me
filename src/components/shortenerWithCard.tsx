@@ -32,7 +32,6 @@ const ShortenerWithCard: React.FC = () => {
         });
     }
     const { data } = api.createLinkRouter.getLinkByUrl.useQuery({ url: bigurl });
-    console.log(data);
 
     const fetchUpdatedData = async () => {
         // Wait for the short URL to be created
@@ -79,6 +78,16 @@ const ShortenerWithCard: React.FC = () => {
 
     const { toast } = useToast();
 
+    const copyToClipboard = (text: string) => {
+        navigator.clipboard.writeText(text)
+            .then(() => {
+                console.log('Copied to clipboard:', text);
+            })
+            .catch(err => {
+                console.error('Failed to copy:', err);
+            });
+    };
+
     return (
         <div className="container flex flex-col items-center justify-center px-4">
             <form
@@ -102,7 +111,7 @@ const ShortenerWithCard: React.FC = () => {
                     onClick={() => {
                         toast({
                             description: "The link has successfully created.",
-                            action: <ToastAction altText="Copy" onClick={() => console.log("clicked")}>Copy It</ToastAction> // Add the action correctly
+                            action: <ToastAction altText="Copy"  onClick={() => copyToClipboard("https://short-me-omega.vercel.app/l/" + data?.short ?? '')}>Copy It</ToastAction> // Add the action correctly
                         });
                     }}
                 >Short-It</Button>
