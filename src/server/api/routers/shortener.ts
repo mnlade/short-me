@@ -1,11 +1,7 @@
-import { z } from "zod";
-import { db } from "~/server/db";
-
-import {
-  createTRPCRouter,
-  publicProcedure,
-} from "~/server/api/trpc";
-import crypto from "crypto";
+import { customAlphabet } from 'nanoid';
+import { z } from 'zod';
+import { db } from '~/server/db';
+import { createTRPCRouter, publicProcedure } from '~/server/api/trpc';
 
 export const createLinkRouter = createTRPCRouter({
   createShortUrl: publicProcedure
@@ -15,10 +11,8 @@ export const createLinkRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ input, ctx }) => {
-      // Function to generate a random short URL in base64
-      const generateShortUrl = () => {
-        return crypto.randomBytes(5).toString("base64").substring(0, 7);
-      };
+      // Function to generate a random short URL in base62
+      const generateShortUrl = customAlphabet('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 7);
 
       // Recursive function to check if the short URL is unique
       const getUniqueShortUrl = async (): Promise<string> => {
