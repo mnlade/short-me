@@ -23,7 +23,7 @@ const ShortenerWithCard: React.FC = () => {
       initial={{ opacity: 1, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.7 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.1 }}
     >
       <SkeletonDashCard />
     </motion.div>,
@@ -32,7 +32,7 @@ const ShortenerWithCard: React.FC = () => {
       initial={{ opacity: 1, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.7 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.1 }}
     >
       <SkeletonDashCard />
     </motion.div>,
@@ -41,7 +41,7 @@ const ShortenerWithCard: React.FC = () => {
       initial={{ opacity: 1, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.7 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.1 }}
     >
       <SkeletonDashCard />
     </motion.div>,
@@ -62,18 +62,18 @@ const ShortenerWithCard: React.FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [createShortUrlMutation.data]); // Trigger when mutation data changes
-
   const addNewCard = () => {
+    const faviconUrl = `https://www.google.com/s2/favicons?sz=64&domain=${createShortUrlMutation.data?.url}`; // Get the favicon of the URL
     const newCard = (
       <motion.div
         key={createShortUrlMutation.data?.short}
         initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.7 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.1 }}
       >
         <DashCard
-          avatarSrc={createShortUrlMutation.data?.short ?? ""}
+          avatarSrc={faviconUrl}
           username={createShortUrlMutation.data?.short ?? ""}
           shorturl={createShortUrlMutation.data?.short ?? ""}
           url={createShortUrlMutation.data?.url ?? ""}
@@ -84,11 +84,11 @@ const ShortenerWithCard: React.FC = () => {
     // Replace the first skeleton with the new card
     const newCards = [...cards];
     const skeletonIndex = newCards.findIndex(
-        (card) => card.key && card.key.startsWith("skeleton")
+      (card) => card.key && card.key.startsWith("skeleton"),
     );
     if (skeletonIndex !== -1) {
-        newCards.splice(skeletonIndex, 1, newCard);
-        setCards(newCards);
+      newCards.splice(skeletonIndex, 1, newCard);
+      setCards(newCards);
       // Show toast
       toast({
         description: "The link has successfully created.",
@@ -110,7 +110,7 @@ const ShortenerWithCard: React.FC = () => {
   };
 
   const { toast } = useToast();
-   
+
   const copyToClipboard = (text: string) => {
     navigator.clipboard
       .writeText(text)
@@ -123,33 +123,33 @@ const ShortenerWithCard: React.FC = () => {
   };
 
   const hasSkeletonCards = cards.some(
-    (card) => card.key && card.key.startsWith("skeleton")
-);
-return (
+    (card) => card.key && card.key.startsWith("skeleton"),
+  );
+  return (
     <div className="container flex flex-col items-center justify-center px-4">
-        <form
-            className="flex w-[370px] m-2 items-center space-x-2"
-            onSubmit={(e) => {
-                e.preventDefault();
-                setUrl(''); // Clear the input value
-                createShortUrl(); // Add new card
-            }}
+      <form
+        className="m-2 flex w-[370px] items-center space-x-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          setUrl(""); // Clear the input value
+          createShortUrl(); // Add new card
+        }}
+      >
+        <Input
+          required
+          id="bigurl"
+          type="url"
+          placeholder="Place your Url Here"
+          value={bigurl}
+          onChange={(e) => setUrl(e.target.value)}
+        />
+        <Button
+          type="submit"
+          disabled={!hasSkeletonCards} // Disable the button if there are no SkeletonDashCards left
         >
-            <Input
-                required
-                id="bigurl"
-                type="url"
-                placeholder="Place your Url Here"
-                value={bigurl}
-                onChange={(e) => setUrl(e.target.value)}
-            />
-            <Button 
-                type="submit"
-                disabled={!hasSkeletonCards} // Disable the button if there are no SkeletonDashCards left
-            >
-                Short-It
-            </Button>
-        </form>
+          Short-It
+        </Button>
+      </form>
       <div id="cards">
         <AnimatePresence>
           {cards.map((card, index) => (
@@ -164,10 +164,12 @@ return (
           ))}
         </AnimatePresence>
       </div>
-      {!hasSkeletonCards && <a href="./login" className="font-bold text-sky-500">Sign in for more links</a>}
-
+      {!hasSkeletonCards && (
+        <a href="./login" className="font-bold text-sky-500">
+          Sign in for more links
+        </a>
+      )}
     </div>
-    
   );
 };
 

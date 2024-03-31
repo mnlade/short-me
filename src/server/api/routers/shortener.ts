@@ -54,7 +54,8 @@ export const createLinkRouter = createTRPCRouter({
 
       return createLink;
     }),
-    getLinkByUrl: publicProcedure
+
+    getLinkByUrl: publicProcedure // Modify to ctx to show in user dashboard
     .input(
       z.object({
         url: z.string(),
