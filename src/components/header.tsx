@@ -11,7 +11,7 @@ const Header: React.FC = () => {
         <Link href="/">
           <div className="flex items-center">
             <h1 className="text-2xl font-extrabold tracking-tight">
-              ShortMe
+              Short<span className="text-sky-500">Me</span>
             </h1>
             <Image
               className="mx-2 mb-1"
