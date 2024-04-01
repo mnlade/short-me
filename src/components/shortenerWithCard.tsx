@@ -13,7 +13,7 @@ const ShortenerWithCard: React.FC = () => {
   const [cards, setCards] = useState<JSX.Element[]>([
     <DashCard
       key="default"
-      avatarSrc="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png"
+      avatarSrc="https://www.google.com/s2/favicons?sz=64&domain_url=github.com"
       username="mnlade"
       shorturl="l/LHIFYt4"
       url="https://github.com/mnlade/short-me"
@@ -23,7 +23,7 @@ const ShortenerWithCard: React.FC = () => {
       initial={{ opacity: 1, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.7 }}
-      transition={{ duration: 0.1 }}
+      transition={{ duration: 0.2 }}
     >
       <SkeletonDashCard />
     </motion.div>,
@@ -32,7 +32,7 @@ const ShortenerWithCard: React.FC = () => {
       initial={{ opacity: 1, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.7 }}
-      transition={{ duration: 0.1 }}
+      transition={{ duration: 0.2 }}
     >
       <SkeletonDashCard />
     </motion.div>,
@@ -41,11 +41,12 @@ const ShortenerWithCard: React.FC = () => {
       initial={{ opacity: 1, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.7 }}
-      transition={{ duration: 0.1 }}
+      transition={{ duration: 0.2 }}
     >
       <SkeletonDashCard />
     </motion.div>,
   ]);
+
 
   const createShortUrlMutation =
     api.createLinkRouter.createShortUrl.useMutation();
@@ -70,7 +71,7 @@ const ShortenerWithCard: React.FC = () => {
         initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.7 }}
-        transition={{ duration: 0.1 }}
+        transition={{ duration: 0.2 }}
       >
         <DashCard
           avatarSrc={faviconUrl}
@@ -149,28 +150,28 @@ const ShortenerWithCard: React.FC = () => {
         >
           Short-It
         </Button>
-      </form>
-      <div id="cards">
+          </form>
+          <div id="cards">
         <AnimatePresence>
           {cards.map((card, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1 }}
+              transition={{ duration: 0.5 }}
             >
               {card}
             </motion.div>
           ))}
         </AnimatePresence>
-      </div>
-      {!hasSkeletonCards && (
-        <a href="./login" className="font-bold text-sky-500">
+          </div>
+          {!hasSkeletonCards && (
+        <Button onClick={() => window.location.href = "/login"} className="font-bold m-2">
           Sign in for more links
-        </a>
-      )}
-    </div>
-  );
+        </Button>
+          )}
+        </div>
+      );
 };
 
 export default ShortenerWithCard;

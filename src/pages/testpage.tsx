@@ -3,9 +3,11 @@ import { NavigationMenuDemo } from "~/components/nav-menu";
 
 const Test: NextPage = () => {
   return (
-    <NavigationMenuDemo>
-      
-    </NavigationMenuDemo>
+    <div>
+      <NavigationMenuDemo>
+
+      </NavigationMenuDemo>
+    </div>
   );
 };
 
