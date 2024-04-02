@@ -7,9 +7,11 @@ import DashCard from "~/components/dashcard";
 import { SkeletonDashCard } from "~/components/skeletonDashcard";
 import { useToast } from "~/components/ui/use-toast";
 import { ToastAction } from "~/components/ui/toast";
+import Spinner from "./spinner";
 
 const ShortenerWithCard: React.FC = () => {
   const [bigurl, setUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [cards, setCards] = useState<JSX.Element[]>([
     <DashCard
       key="default"
@@ -47,11 +49,11 @@ const ShortenerWithCard: React.FC = () => {
     </motion.div>,
   ]);
 
-
   const createShortUrlMutation =
     api.createLinkRouter.createShortUrl.useMutation();
 
   function createShortUrl() {
+    setIsLoading(true); // Set loading to true when the function is called
     createShortUrlMutation.mutate({
       url: bigurl,
     });
@@ -60,9 +62,11 @@ const ShortenerWithCard: React.FC = () => {
   useEffect(() => {
     if (createShortUrlMutation.data) {
       addNewCard();
+      setIsLoading(false); // Set loading to false when the data is received
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [createShortUrlMutation.data]); // Trigger when mutation data changes
+
   const addNewCard = () => {
     const faviconUrl = `https://www.google.com/s2/favicons?sz=64&domain=${createShortUrlMutation.data?.url}`; // Get the favicon of the URL
     const newCard = (
@@ -146,12 +150,22 @@ const ShortenerWithCard: React.FC = () => {
         />
         <Button
           type="submit"
-          disabled={!hasSkeletonCards} // Disable the button if there are no SkeletonDashCards left
+          disabled={!hasSkeletonCards || isLoading} // Disable the button if there are no SkeletonDashCards left or if it's loading
         >
-          Short-It
+          <div // Show spinner when loading and dont change button size
+            style={{
+              width: "60px",
+              height: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {isLoading ? <Spinner /> : "Short-It"}
+          </div>
         </Button>
-          </form>
-          <div id="cards">
+      </form>
+      <div id="cards">
         <AnimatePresence>
           {cards.map((card, index) => (
             <motion.div
@@ -164,14 +178,17 @@ const ShortenerWithCard: React.FC = () => {
             </motion.div>
           ))}
         </AnimatePresence>
-          </div>
-          {!hasSkeletonCards && (
-        <Button onClick={() => window.location.href = "/login"} className="font-bold m-2">
+      </div>
+      {!hasSkeletonCards && (
+        <Button
+          onClick={() => (window.location.href = "/login")}
+          className="m-2 font-bold"
+        >
           Sign in for more links
         </Button>
-          )}
-        </div>
-      );
+      )}
+    </div>
+  );
 };
 
 export default ShortenerWithCard;
