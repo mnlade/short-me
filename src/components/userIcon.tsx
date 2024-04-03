@@ -13,7 +13,7 @@ export default function UserIcon() {
   const { data: sessionData } = useSession();
   return (
     <div className="flex flex-row items-center justify-center gap-2">
-      {!sessionData && (
+      {sessionData && (
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Avatar className="h-10 w-10">
