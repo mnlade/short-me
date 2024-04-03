@@ -1,6 +1,5 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "~/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export default function AuthShowcase() {
   const { data: sessionData } = useSession();
