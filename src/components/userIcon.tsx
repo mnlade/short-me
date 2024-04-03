@@ -17,8 +17,8 @@ export default function UserIcon() {
         <DropdownMenu>
             <DropdownMenuTrigger>
                 <Avatar>
-                    <AvatarImage src={sessionData?.user?.image ?? ''} />
                     <AvatarFallback>A</AvatarFallback> 
+                    <AvatarImage src={sessionData?.user?.image ?? ''} />
                 </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>

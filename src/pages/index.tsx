@@ -15,7 +15,7 @@ export default function Home() {
       </Head>
       <main>
       <Header />
-      <Separator className="" />
+      <Separator/>
 
         <div className="container flex flex-col items-center justify-center gap-4 px-4 lg:py-16 md:py-16 py-8">
         <Hero/>

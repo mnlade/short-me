@@ -55,14 +55,61 @@ export const createLinkRouter = createTRPCRouter({
       return createLink;
     }),
 
-    getImageUrl: protectedProcedure.query(async ({ ctx }) => {
-      const user = await db.user.findUnique({
-        where: { id: ctx.session.user.id },
+    createShortUrlWithDescription: publicProcedure
+    .input(
+      z.object({
+        url: z.string(),
+        description: z.string(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      // Function to generate a random short URL in base62
+      const generateShortUrl = customAlphabet('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 7);
+
+      // Recursive function to check if the short URL is unique
+      const getUniqueShortUrl = async (): Promise<string> => {
+        const shortUrl = generateShortUrl();
+        const existingUrl = await db.link.findUnique({
+          where: { short: shortUrl },
+        });
+
+        if (existingUrl) {
+          return getUniqueShortUrl();
+        } else {
+          return shortUrl;
+        }
+      };
+
+      const shortUrl = await getUniqueShortUrl();
+
+      const createLinkData: {
+        url: string;
+        short: string;
+        description?: string;
+        createdBy?: { connect: { id: string } };
+      } = {
+        description: input.description,
+        url: input.url,
+        short: shortUrl,
+      };
+
+      // Check if a user is logged in and if they have an ID
+      if (ctx?.session?.user?.id) {
+        // If a user is logged in, associate the created link with that user
+        createLinkData.createdBy = { connect: { id: ctx.session.user.id } };
+      } else {
+        // If no user is logged in, associate the created link with the anonymous user
+        createLinkData.createdBy = { connect: { id: "anonymous" } };
+      }
+
+      const createLink = await db.link.create({
+        data: createLinkData,
       });
-  
-      return user?.image;
-    }
-  ),
+
+      return createLink;
+    }),
+
+    
 
     getLinkByUrl: publicProcedure // Modify to ctx to show in user dashboard
     .input(
