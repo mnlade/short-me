@@ -15,7 +15,7 @@ const ShortenerWithCard: React.FC = () => {
   const [cards, setCards] = useState<JSX.Element[]>([
     <DashCard
       key="default"
-      avatarSrc="https://www.google.com/s2/favicons?sz=64&domain_url=github.com"
+      avatarSrc="https://www.google.com/s2/favicons?sz=40&domain_url=github.com"
       username="mnlade"
       shorturl="l/LHIFYt4"
       url="https://github.com/mnlade/short-me"
@@ -68,7 +68,7 @@ const ShortenerWithCard: React.FC = () => {
   }, [createShortUrlMutation.data]); // Trigger when mutation data changes
 
   const addNewCard = () => {
-    const faviconUrl = `https://www.google.com/s2/favicons?sz=64&domain=${createShortUrlMutation.data?.url}`; // Get the favicon of the URL
+    const faviconUrl = `https://www.google.com/s2/favicons?sz=40&domain=${createShortUrlMutation.data?.url}`; // Get the favicon of the URL
     const newCard = (
       <motion.div
         key={createShortUrlMutation.data?.short}
