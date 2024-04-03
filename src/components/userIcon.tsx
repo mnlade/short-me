@@ -1,5 +1,4 @@
 import { useSession } from "next-auth/react";
-import { Button } from "~/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
   DropdownMenu,
@@ -18,7 +17,8 @@ export default function UserIcon() {
         <DropdownMenu>
             <DropdownMenuTrigger>
                 <Avatar>
-                    <AvatarImage src={sessionData?.user?.image ?? ''} /> 
+                    <AvatarImage src={sessionData?.user?.image ?? ''} />
+                    <AvatarFallback>A</AvatarFallback> 
                 </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
