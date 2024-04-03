@@ -1,7 +1,7 @@
 import { customAlphabet } from 'nanoid';
 import { z } from 'zod';
 import { db } from '~/server/db';
-import { createTRPCRouter, publicProcedure } from '~/server/api/trpc';
+import { createTRPCRouter, protectedProcedure, publicProcedure } from '~/server/api/trpc';
 
 export const createLinkRouter = createTRPCRouter({
   createShortUrl: publicProcedure
@@ -55,22 +55,29 @@ export const createLinkRouter = createTRPCRouter({
       return createLink;
     }),
 
+    getImageUrl: protectedProcedure.query(async ({ ctx }) => {
+      const user = await db.user.findUnique({
+        where: { id: ctx.session.user.id },
+      });
+  
+      return user?.image;
+    }
+  ),
+
     getLinkByUrl: publicProcedure // Modify to ctx to show in user dashboard
     .input(
       z.object({
         url: z.string(),
       }),
     )
-    .query(async ({ input }) => {
+    .query(async ({ input, ctx }) => {
       const data = await db.link.findFirst({
         where: {
           url: {
             equals: input.url,
           },
         },
-        orderBy: {       
-          createdAt: 'desc',
-        },
+
       });
   
       return data;

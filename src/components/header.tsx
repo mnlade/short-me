@@ -3,6 +3,7 @@ import AuthShowcase from "./authShowCase";
 import { ModeToggle } from "./ModeToggle";
 import Image from "next/image";
 import Link from "next/link";
+import UserIcon from "./userIcon";
 
 const Header: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const Header: React.FC = () => {
         <div className="flex items-center space-x-2">
           <ModeToggle />
           <AuthShowcase />
+          <UserIcon />
         </div>
       </div>
     </header>

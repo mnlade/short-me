@@ -1,15 +1,12 @@
 import { type NextPage } from "next";
-import DashCard from "~/components/dashcard";
+import { useProtectedView } from "~/hooks/useProtectedView";
 
 const Dash: NextPage = () => {
+  useProtectedView();
+  
   return (
     <div>
-      <DashCard
-        avatarSrc="https://avatars.githubusercontent.com/u/145766389?s=96&v=4"
-        username="mnlade"
-        shorturl="short-me/l/qwer123"
-        url="https://github.com/mnlade/short-meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
-      />
+      <p>Holas</p>
     </div>
   );
 };

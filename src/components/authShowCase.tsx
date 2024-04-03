@@ -1,10 +1,11 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "~/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export default function AuthShowcase() {
   const { data: sessionData } = useSession();
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
+    <div className="flex flex-row items-center justify-center gap-2">
       {/* <p className="text-center text-2xl">
         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
       </p> */}
