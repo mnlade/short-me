@@ -13,7 +13,7 @@ export default function UserIcon() {
   const { data: sessionData } = useSession();
   return (
     <div className="flex flex-row items-center justify-center gap-2">
-      {sessionData && (
+      {!sessionData && (
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Avatar className="h-10 w-10">
@@ -25,7 +25,7 @@ export default function UserIcon() {
             <DropdownMenuLabel>
               {sessionData?.user?.name ?? ""}
             </DropdownMenuLabel>
-            <DropdownMenuLabel className="text-sm text-muted-foreground">
+            <DropdownMenuLabel className="text-sm text-muted-foreground -mt-[10px]">
               {sessionData?.user?.email ?? ""}
             </DropdownMenuLabel>
             <DropdownMenuSeparator />{" "}
