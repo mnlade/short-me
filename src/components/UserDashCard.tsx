@@ -11,7 +11,7 @@ interface DashCardProps {
   shorturl: string;
   url: string;
   description: string;
-  date: string;
+  date: Date;
 }
 
 const UserDashCard: React.FC<DashCardProps> = ({
@@ -65,7 +65,7 @@ const UserDashCard: React.FC<DashCardProps> = ({
         </div>
         <div>
             <p className=" text-right p-3 text-sm text-muted-foreground">
-                {date}
+                {date.toString()}
             </p>
         </div>
       </div>

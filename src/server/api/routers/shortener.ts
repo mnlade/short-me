@@ -55,7 +55,7 @@ export const createLinkRouter = createTRPCRouter({
       return createLink;
     }),
 
-    createShortUrlWithDescription: publicProcedure
+    createShortUrlWithDescription: protectedProcedure
     .input(
       z.object({
         url: z.string(),
@@ -109,7 +109,16 @@ export const createLinkRouter = createTRPCRouter({
       return createLink;
     }),
 
-    
+    getLinksByUser: protectedProcedure
+    .query(async ({ ctx }) => {
+      const links = await db.link.findMany({
+        where: {
+          createdBy: { id: ctx.session.user.id },
+        },
+      });
+
+      return links;
+    }), 
 
     getLinkByUrl: publicProcedure // Modify to ctx to show in user dashboard
     .input(
