@@ -43,7 +43,7 @@ const Dash: NextPage = () => {
     );
   });
 
-  const totalPages = Math.ceil((data?.length || 0) / itemsPerPage);
+  const totalPages = Math.ceil((data?.length ?? 0) / itemsPerPage);
 
   return (
     <>
