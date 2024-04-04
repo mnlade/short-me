@@ -115,31 +115,37 @@ export const createLinkRouter = createTRPCRouter({
         where: {
           createdBy: { id: ctx.session.user.id },
         },
+        orderBy: { createdAt: 'desc' },
       });
 
       return links;
     }), 
 
-    getLinkByUrl: publicProcedure // Modify to ctx to show in user dashboard
+    updateLinkDescription: protectedProcedure
     .input(
       z.object({
-        url: z.string(),
+        short: z.string(),
+        newDescription: z.string(),
       }),
     )
-    .query(async ({ input, ctx }) => {
-      const data = await db.link.findFirst({
-        where: {
-          url: {
-            equals: input.url,
-          },
-        },
+    .mutation(async ({ input, ctx }) => {
+      // Check if a user is logged in and if they have an ID
+      if (ctx?.session?.user?.id) {
+        // If a user is logged in, update the link description
+        const updatedLink = await db.link.update({
+          where: { short: input.short },
+          data: { description: input.newDescription },
+        });
 
-      });
-  
-      return data;
+        return updatedLink;
+      } else {
+        // If no user is logged in, throw an error
+        throw new Error("You must be logged in to update a link description.");
+      }
     }),
-    
 });
+    
+
 
 
 // Function to delete anonymous links
