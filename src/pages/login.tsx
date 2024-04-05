@@ -63,7 +63,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   // If the user is already logged in, redirect.
 
   if (session) {
-    return { redirect: { destination: "/" } };
+    return { redirect: { destination: "/dash" } };
     // return { redirect: { destination: "/dash" } }; disablaed for now
 
   }

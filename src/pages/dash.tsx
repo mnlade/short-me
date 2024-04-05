@@ -14,7 +14,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "~/components/ui/pagination";
-import { motion, AnimatePresence } from "framer-motion"; // Importa motion y AnimatePresence
+import { motion, AnimatePresence } from "framer-motion";
 
 const Dash: NextPage = () => {
   const { data, error, isLoading, refetch } =
