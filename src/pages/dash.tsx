@@ -14,10 +14,12 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "~/components/ui/pagination";
+import { motion, AnimatePresence } from 'framer-motion'; // Importa motion y AnimatePresence
+
 
 const Dash: NextPage = () => {
-  const { data, error, isLoading } =
-    api.createLinkRouter.getLinksByUser.useQuery();
+  const { data, error, isLoading, refetch } =
+  api.createLinkRouter.getLinksByUser.useQuery();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
@@ -48,7 +50,14 @@ const Dash: NextPage = () => {
       }
 
       return (
-        <div className="p-4" key={link.id}>
+        <motion.div // Reemplaza div con motion.div
+          className="p-4"
+          key={link.id}
+          initial={{ opacity: 0, scale: 0.9 }} // Estado inicial de la animación
+          animate={{ opacity: 1, scale: 1 }} // Estado final de la animación
+          exit={{ opacity: 0, scale: 0.9 }} // Estado de salida de la animación
+          transition={{ duration: 0.5 }} // Duración de la animación en segundos
+        >
           <UserDashCard
             avatarSrc={`https://www.google.com/s2/favicons?sz=40&domain=${link.url}`}
             username={link.short}
@@ -58,7 +67,7 @@ const Dash: NextPage = () => {
             date={formattedDate}
             onAddDescription={updateLinkDescription}
           />
-        </div>
+        </motion.div>
       );
     });
 
@@ -69,7 +78,7 @@ const Dash: NextPage = () => {
       <Header />
       <Separator />
       <div className="gap-4 px-4 py-8 ">
-        <Shortener />
+      <Shortener onNewLinkCreated={refetch} /> 
       </div>
       <Separator />
       <div className="container mx-auto">
@@ -79,7 +88,9 @@ const Dash: NextPage = () => {
           ) : error ? (
             <p>Error: {error.message}</p>
           ) : (
-            cards
+            <AnimatePresence> 
+            {cards}
+          </AnimatePresence>
           )}
         </div>
         <Pagination>
