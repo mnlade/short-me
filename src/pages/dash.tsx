@@ -14,12 +14,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "~/components/ui/pagination";
-import { motion, AnimatePresence } from 'framer-motion'; // Importa motion y AnimatePresence
-
+import { motion, AnimatePresence } from "framer-motion"; // Importa motion y AnimatePresence
 
 const Dash: NextPage = () => {
   const { data, error, isLoading, refetch } =
-  api.createLinkRouter.getLinksByUser.useQuery();
+    api.createLinkRouter.getLinksByUser.useQuery();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
@@ -50,13 +49,13 @@ const Dash: NextPage = () => {
       }
 
       return (
-        <motion.div // Reemplaza div con motion.div
+        <motion.div
           className="p-4"
           key={link.id}
-          initial={{ opacity: 0, scale: 0.9 }} // Estado inicial de la animación
-          animate={{ opacity: 1, scale: 1 }} // Estado final de la animación
-          exit={{ opacity: 0, scale: 0.9 }} // Estado de salida de la animación
-          transition={{ duration: 0.5 }} // Duración de la animación en segundos
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          // exit={{ opacity: 0, scale: 0.9 }} // Remove the exit animation for prevent overflow
+          transition={{ duration: 0.5 }}
         >
           <UserDashCard
             avatarSrc={`https://www.google.com/s2/favicons?sz=40&domain=${link.url}`}
@@ -78,19 +77,17 @@ const Dash: NextPage = () => {
       <Header />
       <Separator />
       <div className="gap-4 px-4 py-8 ">
-      <Shortener onNewLinkCreated={refetch} /> 
+        <Shortener onNewLinkCreated={refetch} />
       </div>
       <Separator />
-      <div className="container mx-auto">
-        <div className="flex flex-wrap items-center justify-center gap-4">
+      <div className=" max-w-[1400px] w-full mx-auto">
+        <div className="flex  flex-wrap items-center justify-center gap-4 overflow-hidden">
           {isLoading ? (
             <Spinner />
           ) : error ? (
             <p>Error: {error.message}</p>
           ) : (
-            <AnimatePresence> 
-            {cards}
-          </AnimatePresence>
+            <AnimatePresence>{cards}</AnimatePresence>
           )}
         </div>
         <Pagination>
