@@ -59,10 +59,12 @@ export const authOptions: NextAuthOptions = {
     GithubProvider({
       clientId: env.GITHUB_CLIENT_ID,
       clientSecret: env.GITHUB_CLIENT_SECRET,
+      allowDangerousEmailAccountLinking: true, // Enabled for email account linking cause i trust providers
     }),
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET
+      clientSecret: env.DISCORD_CLIENT_SECRET,
+      allowDangerousEmailAccountLinking: true, // Enabled for email account linking cause i trust providers
     }),
     /**
      * ...add more providers here.
@@ -74,10 +76,10 @@ export const authOptions: NextAuthOptions = {
      * @see https://next-auth.js.org/providers/github
      */
   ],
-    pages: {
-      // custom sign in page
-      signIn: '/login',
-    },
+  pages: {
+    // custom sign in page
+    signIn: "/login",
+  },
 };
 
 /**
