@@ -35,17 +35,27 @@ const UserDashCard: React.FC<DashCardProps> = ({
   username,
   shorturl,
   url,
-  description,
+  description: initialDescription,
   date,
 }) => {
-  const [newDescription, setNewDescription] = useState(description);
+  const [description, setDescription] = useState(initialDescription);
+  const [newDescription, setNewDescription] = useState(initialDescription);
   const updateLinkDescriptionMutation =
     api.createLinkRouter.updateLinkDescription.useMutation();
+
+  useEffect(() => {
+    setDescription(initialDescription);
+    setNewDescription(initialDescription);
+  }, [initialDescription]);
 
   function updateLinkDescription() {
     updateLinkDescriptionMutation.mutate({
       short: shorturl,
       newDescription: newDescription,
+    }, {
+      onSuccess: () => {
+        setDescription(newDescription);
+      }
     });
   }
   return (
