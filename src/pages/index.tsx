@@ -11,6 +11,7 @@ export default function Home() {
       <Head>
         <title>Short-Me</title>
         <meta name="description" content="Free Url Shortener" />
+        <meta name="google-site-verification" content="ydpLuARVLQCzlLmRXPwIsmggWWzVAd-GzNJWD6tLm6Q" />
         <link rel="icon" href="/logoshortme.png" />
       </Head>
       <main>
