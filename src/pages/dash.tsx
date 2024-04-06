@@ -13,8 +13,10 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  PaginationEllipsis,
 } from "~/components/ui/pagination";
 import { motion, AnimatePresence } from "framer-motion";
+import Footer from "~/components/footer";
 
 const Dash: NextPage = () => {
   const { data, error, isLoading, refetch } =
@@ -80,7 +82,7 @@ const Dash: NextPage = () => {
         <Shortener onNewLinkCreated={refetch} />
       </div>
       <Separator />
-      <div className=" max-w-[1400px] w-full mx-auto">
+      <div className=" mx-auto w-full max-w-[1400px] pb-20">
         <div className="flex  flex-wrap items-center justify-center gap-4 overflow-hidden">
           {isLoading ? (
             <Spinner />
@@ -89,38 +91,73 @@ const Dash: NextPage = () => {
           ) : (
             <AnimatePresence>{cards}</AnimatePresence>
           )}
-        </div>
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                href="#"
-                onClick={() => setCurrentPage((page) => Math.max(page - 1, 1))}
-              />
-            </PaginationItem>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-              (pageNum) => (
-                <PaginationItem key={pageNum}>
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  href="#"
+                  onClick={() =>
+                    setCurrentPage((page) => Math.max(page - 1, 1))
+                  }
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink
+                  href="#"
+                  onClick={() => setCurrentPage(1)}
+                  isActive={1 === currentPage}
+                >
+                  1
+                </PaginationLink>
+              </PaginationItem>
+              {currentPage > 2 && <PaginationEllipsis />}
+              {currentPage > 1 && currentPage < totalPages && (
+                <PaginationItem>
                   <PaginationLink
                     href="#"
-                    onClick={() => setCurrentPage(pageNum)}
-                    isActive={pageNum === currentPage}
+                    onClick={() => setCurrentPage(currentPage)}
+                    isActive={true}
                   >
-                    {pageNum}
+                    {currentPage}
                   </PaginationLink>
                 </PaginationItem>
-              ),
-            )}
-            <PaginationItem>
-              <PaginationNext
-                href="#"
-                onClick={() =>
-                  setCurrentPage((page) => Math.min(page + 1, totalPages))
-                }
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+              )}
+              {currentPage < totalPages - 1 && (
+                <PaginationItem>
+                  <PaginationLink
+                    href="#"
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                    isActive={currentPage + 1 === currentPage}
+                  >
+                    {currentPage + 1}
+                  </PaginationLink>
+                </PaginationItem>
+              )}
+              {currentPage < totalPages - 1 && <PaginationEllipsis />}
+              <PaginationItem>
+                <PaginationLink
+                  href="#"
+                  onClick={() => setCurrentPage(totalPages)}
+                  isActive={totalPages === currentPage}
+                >
+                  {totalPages}
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext
+                  href="#"
+                  onClick={() =>
+                    setCurrentPage((page) => Math.min(page + 1, totalPages))
+                  }
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
+      </div>
+      <div className=" fixed bottom-0 w-full bg-white/60 text-sm text-muted-foreground backdrop-blur-sm animate-in fade-in-25 dark:bg-neutral-900/60">
+        <Separator />
+        <Footer />
       </div>
     </>
   );

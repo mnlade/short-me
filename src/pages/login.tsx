@@ -64,7 +64,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   if (session) {
     return { redirect: { destination: "/dash" } };
-    // return { redirect: { destination: "/dash" } }; disablaed for now
 
   }
 
