@@ -143,6 +143,28 @@ export const createLinkRouter = createTRPCRouter({
         throw new Error("You must be logged in to update a link description.");
       }
     }),
+
+    deleteLink: protectedProcedure
+    .input(
+      z.object({
+        short: z.string(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      // Check if a user is logged in and if they have an ID
+      if (ctx?.session?.user?.id) {
+        // If a user is logged in, delete the link
+        const deletedLink = await db.link.delete({
+          where: { short: input.short },
+        });
+
+        return deletedLink;
+      } else {
+        // If no user is logged in, throw an error
+        throw new Error("You must be logged in to delete a link.");
+      }
+    }),
+
 });
     
 

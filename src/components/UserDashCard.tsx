@@ -27,6 +27,7 @@ interface DashCardProps {
   onAddDescription?: () => void;
   onDescriptionChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSaveChanges?: () => void;
+  onDeleteLink?: () => void;
 }
 
 const UserDashCard: React.FC<DashCardProps> = ({
@@ -36,6 +37,7 @@ const UserDashCard: React.FC<DashCardProps> = ({
   url,
   description: initialDescription,
   date,
+  onDeleteLink,
 }) => {
   const [description, setDescription] = useState(initialDescription);
   const [newDescription, setNewDescription] = useState(initialDescription);
@@ -48,18 +50,39 @@ const UserDashCard: React.FC<DashCardProps> = ({
   }, [initialDescription]);
 
   function updateLinkDescription() {
-    updateLinkDescriptionMutation.mutate({
-      short: shorturl,
-      newDescription: newDescription,
-    }, {
-      onSuccess: () => {
-        setDescription(newDescription);
-      }
-    });
+    updateLinkDescriptionMutation.mutate(
+      {
+        short: shorturl,
+        newDescription: newDescription,
+      },
+      {
+        onSuccess: () => {
+          setDescription(newDescription);
+        },
+      },
+    );
+  }
+  const deleteLinkMutation = api.createLinkRouter.deleteLink.useMutation();
+
+  function deleteLink() {
+    deleteLinkMutation.mutate(
+      {
+        short: shorturl,
+      },
+      {
+        onSuccess: () => {
+          if (onDeleteLink) {
+            onDeleteLink(); // Call the onDeleteLink function when the mutation is successful
+          }
+        },
+      },
+    );
   }
 
   const copyToClipboard = () => {
-    void navigator.clipboard.writeText(`https://short-me-omega.vercel.app/l/${shorturl}`);
+    void navigator.clipboard.writeText(
+      `https://short-me-omega.vercel.app/l/${shorturl}`,
+    );
   };
 
   return (
@@ -87,13 +110,31 @@ const UserDashCard: React.FC<DashCardProps> = ({
                 });
               }}
               className="ml-2 cursor-pointer hover:scale-125"
-            />          </div>
+            />{" "}
+          </div>
           <div className="flex items-start space-x-1">
             <div>
               <MdModeEdit className="-mt-2 h-4 w-4 hover:scale-125 " />
             </div>
             <div>
-              <MdDelete className="-mt-2 h-4 w-4 hover:scale-125 " />
+              <Dialog>
+                <DialogTrigger asChild>
+                  <MdDelete className="-mt-2 h-4 w-4 hover:scale-125 " />
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Confirm Delete Link</DialogTitle>
+                    <DialogDescription>
+                      Are you sure u want to delete this link?
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter>
+                    <Button variant={"destructive"} type="submit" onClick={deleteLink}>
+                      Delete
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
         </div>
@@ -109,10 +150,7 @@ const UserDashCard: React.FC<DashCardProps> = ({
           ) : (
             <Dialog>
               <DialogTrigger asChild>
-                <Button
-                  className="ml-3 mt-2"
-                  variant="outline"
-                >
+                <Button className="ml-3 mt-2" variant="outline">
                   Add a new Description
                 </Button>
               </DialogTrigger>
@@ -126,7 +164,7 @@ const UserDashCard: React.FC<DashCardProps> = ({
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="description">Description</Label>
+                    <Label htmlFor="description">Description</Label>
 
                     <Input
                       id="description"
