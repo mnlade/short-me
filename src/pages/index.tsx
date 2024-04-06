@@ -19,11 +19,11 @@ export default function Home() {
       <Header />
       <Separator/>
 
-        <div className="container flex flex-col items-center justify-center gap-4 px-4 lg:py-16 md:py-16 py-8">
+        <div className="container flex flex-col items-center justify-center gap-4 px-4 lg:py-16 md:py-16 py-8 pb-20 ">
         <Hero/>
         <ShortenerWithCard /> 
         </div>
-        <div className=" fixed bottom-0 w-full bg-white/60 text-sm text-muted-foreground backdrop-blur-sm animate-in fade-in-25 dark:bg-neutral-900/60">
+        <div className="fixed bottom-0 w-full bg-white/60 text-sm text-muted-foreground backdrop-blur-sm animate-in fade-in-25 dark:bg-neutral-900/60">
         <Separator />
         <Footer />
       </div>
