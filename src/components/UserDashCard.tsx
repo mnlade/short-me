@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-
-import { MdModeEdit, MdDelete } from "react-icons/md";
+import { MdModeEdit, MdDelete, MdContentCopy } from "react-icons/md";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
@@ -16,7 +15,6 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { api } from "~/utils/api";
-
 
 interface DashCardProps {
   avatarSrc: string;
@@ -58,6 +56,11 @@ const UserDashCard: React.FC<DashCardProps> = ({
       }
     });
   }
+
+  const copyToClipboard = () => {
+    void navigator.clipboard.writeText(`https://short-me-omega.vercel.app/l/${shorturl}`);
+  };
+
   return (
     <div className="m-2 grid h-[71x] w-[370px] grid-cols-5 gap-4 rounded-lg border bg-card text-card-foreground shadow-md">
       <div className="col-span-1 row-span-2 m-auto flex items-center justify-center">
@@ -68,12 +71,15 @@ const UserDashCard: React.FC<DashCardProps> = ({
       </div>
       <div className="col-span-4 row-span-2 flex flex-col p-3 pl-0">
         <div className="flex items-center justify-between">
-          <a
-            href={`https://short-me-omega.vercel.app/l/${shorturl}`}
-            className="text-m overflow-hidden overflow-ellipsis whitespace-nowrap font-semibold"
-          >
-            {shorturl}
-          </a>
+          <div className="flex items-center">
+            <a
+              href={`https://short-me-omega.vercel.app/l/${shorturl}`}
+              className="text-m overflow-hidden overflow-ellipsis whitespace-nowrap font-semibold"
+            >
+              {shorturl}
+            </a>
+            <MdContentCopy onClick={copyToClipboard} className="ml-2 cursor-pointer hover:scale-125" />
+          </div>
           <div className="flex items-start space-x-1">
             <div>
               <MdModeEdit className="-mt-2 h-4 w-4 hover:scale-125 " />
