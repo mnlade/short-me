@@ -17,7 +17,7 @@ const ShortenerWithCard: React.FC = () => {
       key="default"
       avatarSrc="https://www.google.com/s2/favicons?sz=40&domain_url=github.com"
       username="mnlade"
-      shorturl="l/LHIFYt4"
+      shorturl="LHIFYt4"
       url="https://github.com/mnlade/short-me"
     />,
     <motion.div

@@ -15,6 +15,7 @@ import {
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { api } from "~/utils/api";
+import { toast } from "./ui/use-toast";
 
 interface DashCardProps {
   avatarSrc: string;
@@ -78,8 +79,15 @@ const UserDashCard: React.FC<DashCardProps> = ({
             >
               {shorturl}
             </a>
-            <MdContentCopy onClick={copyToClipboard} className="ml-2 cursor-pointer hover:scale-125" />
-          </div>
+            <MdContentCopy
+              onClick={() => {
+                copyToClipboard();
+                toast({
+                  description: "Your link has been copied to the clipboard!",
+                });
+              }}
+              className="ml-2 cursor-pointer hover:scale-125"
+            />          </div>
           <div className="flex items-start space-x-1">
             <div>
               <MdModeEdit className="-mt-2 h-4 w-4 hover:scale-125 " />
