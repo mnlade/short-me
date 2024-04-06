@@ -1,15 +1,16 @@
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-export function useProtectedView() {
-    const { data: session } = useSession();
+export function useProtectedView(location: string) {
+    const { status } = useSession();
+    const router = useRouter();
 
     useEffect(() => {
-        if (!session) {
-            // When session is not available redirect to login page
-            window.location.href = "/login";
+        if (status === "unauthenticated") {
+            void router.push(location);
         }
-    }, [session]);
-
-    return { props: {} };
+    }, [status, location, router]);
+       
+    return { status };
 }

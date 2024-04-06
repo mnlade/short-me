@@ -8,9 +8,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useRouter } from 'next/router';
 
 export default function UserIcon() {
   const { data: sessionData } = useSession();
+  const router = useRouter();
+
+  const handleDashboardRedirect = () => {
+    void router.push('/dash');
+  };
+
   return (
     <div className="flex flex-row items-center justify-center gap-2">
       {sessionData && (
@@ -30,9 +37,9 @@ export default function UserIcon() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />{" "}
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleDashboardRedirect} >Dashboard</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Log out</DropdownMenuItem>
+            <DropdownMenuItem>Log out</DropdownMenuItem> 
           </DropdownMenuContent>
         </DropdownMenu>
       )}

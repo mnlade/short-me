@@ -3,6 +3,7 @@ import ShortenerWithCard from "~/components/shortenerWithCard";
 import Hero from "~/components/hero";
 import Header from "~/components/header";
 import { Separator } from "~/components/ui/separator";
+import Footer from "~/components/footer";
 
 
 export default function Home() {
@@ -22,6 +23,10 @@ export default function Home() {
         <Hero/>
         <ShortenerWithCard /> 
         </div>
+        <div className=" fixed bottom-0 w-full bg-white/60 text-sm text-muted-foreground backdrop-blur-sm animate-in fade-in-25 dark:bg-neutral-900/60">
+        <Separator />
+        <Footer />
+      </div>
       </main>
     </>
   );

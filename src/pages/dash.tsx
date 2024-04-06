@@ -17,8 +17,11 @@ import {
 } from "~/components/ui/pagination";
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "~/components/footer";
+import { useProtectedView } from "~/hooks/useProtectedView";
 
 const Dash: NextPage = () => {
+  const { status } = useProtectedView("/login");
+  
   const { data, error, isLoading, refetch } =
     api.createLinkRouter.getLinksByUser.useQuery();
   const [currentPage, setCurrentPage] = useState(1);
@@ -84,7 +87,7 @@ const Dash: NextPage = () => {
       <Separator />
       <div className=" mx-auto w-full max-w-[1400px] pb-20">
         <div className="flex  flex-wrap items-center justify-center gap-4 overflow-hidden">
-          {isLoading ? (
+          {isLoading || status ==="loading" ? (
             <Spinner />
           ) : error ? (
             <p>Error: {error.message}</p>
