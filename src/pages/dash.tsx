@@ -72,7 +72,7 @@ const Dash: NextPage = () => {
             onAddDescription={updateLinkDescription}
             onDeleteLink={refetch}  
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            clickcounter={link.clicks}        
+            clickcounter={link.clicks || 0}        
           />
         </motion.div>
       );
