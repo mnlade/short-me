@@ -1,5 +1,5 @@
 import { type NextPage } from "next";
-import Header from "~/components/header";
+import UserHeader from "~/components/header";
 import { Separator } from "~/components/ui/separator";
 import Shortener from "~/components/shortener";
 import UserDashCard from "~/components/UserDashCard";
@@ -83,7 +83,7 @@ const Dash: NextPage = () => {
 
   return (
     <>
-      <Header />
+      <UserHeader />
       <Separator />
       <div className="gap-4 px-4 py-8 ">
         <Shortener onNewLinkCreated={refetch} />
@@ -162,7 +162,7 @@ const Dash: NextPage = () => {
           </Pagination>
         </div>
       </div>
-      <div className=" fixed bottom-0 w-full  text-sm text-muted-foreground backdrop-blur-sm animate-in fade-in-25">
+      <div className=" fixed bottom-0 w-full text-sm text-muted-foreground backdrop-blur-sm animate-in fade-in-25">
         <Separator />
         <Footer />
       </div>

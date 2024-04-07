@@ -17,10 +17,9 @@ export default function UserIcon() {
   const handleDashboardRedirect = () => {
     void router.push('/dash');
   };
-
   return (
     <div className="flex flex-row items-center justify-center gap-2">
-      {sessionData && (
+      {sessionData ? (
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Avatar className="h-10 w-10">
@@ -38,10 +37,15 @@ export default function UserIcon() {
             <DropdownMenuSeparator />{" "}
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuItem onClick={handleDashboardRedirect} >Dashboard</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Log out</DropdownMenuItem> 
+            {/* <DropdownMenuSeparator />
+            <DropdownMenuItem>Log out</DropdownMenuItem>  */}
           </DropdownMenuContent>
         </DropdownMenu>
+      ) : (
+        // Aquí puedes poner lo que quieras mostrar mientras se carga sessionData
+        <Avatar className="h-10 w-10">
+              <AvatarFallback></AvatarFallback>
+            </Avatar>
       )}
     </div>
   );

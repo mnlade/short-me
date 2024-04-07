@@ -3,15 +3,9 @@ import AuthShowcase from "./authShowCase";
 import { ModeToggle } from "./ModeToggle";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from 'next/router';
-import { Button } from "./ui/button";
+import UserIcon from "./userIcon";
 
-const Header: React.FC = () => {
-  const router = useRouter();
-
-  const handleDashboardRedirect = () => {
-    void router.push('/dash');
-  };
+const UserHeader: React.FC = () => {
   return (
     <header>
       <div className="flex items-center justify-between py-3 px-4 lg:mx-80 md:mx-20 sm:mx-2">
@@ -29,14 +23,14 @@ const Header: React.FC = () => {
             />
           </div>
         </Link>
-        <div className="flex items-center space-x-3">
-        <Button variant={"outline"} onClick={handleDashboardRedirect}>Dashboard</Button>
+        <div className="flex items-center space-x-2">
           <ModeToggle />
-          <AuthShowcase />          
+          <AuthShowcase />
+          <UserIcon />
         </div>
       </div>
     </header>
   );
 };
 
-export default Header;
+export default UserHeader;

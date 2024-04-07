@@ -133,10 +133,12 @@ const UserDashCard: React.FC<DashCardProps> = ({
                 </button>
               </PopoverTrigger>
               <PopoverContent className="w-50">
-                <header className="font-semibold mb-2">Edit your QR code</header>
-                <Separator/>
+                <header className="mb-2 font-semibold">
+                  Edit your QR code
+                </header>
+                <Separator />
 
-                <div className="flex flex-row items-center my-3">
+                <div className="my-3 flex flex-row items-center">
                   <p>Logo</p>
                   <Checkbox
                     className="ml-2"
@@ -162,7 +164,7 @@ const UserDashCard: React.FC<DashCardProps> = ({
                   />
                 )}
                 {!isChecked && (
-                  <QRCode 
+                  <QRCode
                     value={`https://short-me-omega.vercel.app/l/${shorturl}`}
                     size={200}
                     fgColor="#000000"
@@ -180,7 +182,9 @@ const UserDashCard: React.FC<DashCardProps> = ({
             <div>
               <Dialog>
                 <DialogTrigger asChild>
-                  <MdModeEdit className="h-4 w-4 hover:scale-125 " />
+                  <button>
+                    <MdModeEdit className="h-4 w-4 hover:scale-125 " />
+                  </button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>

@@ -8,7 +8,7 @@ export default function AuthShowcase() {
       {/* <p className="text-center text-2xl">
         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
       </p> */}
-      <Button
+      <Button className="w-[86px]"
         onClick={sessionData ? () => void signOut() : () => void signIn()}
       >
         {sessionData ? "Sign out" : "Sign in"}
