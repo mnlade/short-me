@@ -31,7 +31,7 @@ const ShortenerWithCard: React.FC = () => {
         username="mnlade"
         shorturl="LHIFYt4"
         url="https://github.com/mnlade/short-me"
-        clickcounter={clickCounterValue || 0}
+        clickcounter={clickCounterValue}
       />,
       <motion.div
         key="skeleton1"
@@ -96,8 +96,8 @@ const ShortenerWithCard: React.FC = () => {
           username={createShortUrlMutation.data?.short ?? ""}
           shorturl={createShortUrlMutation.data?.short ?? ""}
           url={createShortUrlMutation.data?.url ?? ""}
-          clickcounter={createShortUrlMutation.data?.clicks as number}
-        />
+          clickcounter={createShortUrlMutation.data!.clicks as number}
+          />
       </motion.div>
     );
 
