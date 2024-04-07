@@ -1,4 +1,3 @@
-
 # Short-Me
 
 This project is a URL shortener with QR code generation. It allows users to shorten long URLs and generate a QR code for easy sharing and scanning. Built with the T3 Stack, it leverages technologies like Next.js, NextAuth.js, Prisma, Tailwind CSS, tRPC, Turso and shadcn. This project is bootstrapped with `create-t3-app`, providing a solid foundation for further development and deployment.
@@ -6,6 +5,10 @@ This project is a URL shortener with QR code generation. It allows users to shor
 ## Why I Made This
 
 I created this project as part of my final year project for my degree and to gain proficiency in the technologies I've used, both within and outside of my studies. As a culmination of my academic journey and personal interest, this project allowed me to apply the knowledge and skills I've acquired throughout my studies and beyond. This project represents not only a personal accomplishment but also a testament to my dedication to continuous learning and growth in the field of Full-Stack Web Development.
+
+## Why Open Source
+
+I decided to make this project open source because I've learned so much throughout its development journey, and I hope that by sharing it, others can benefit in the same way. I believe in the power of community-driven development and the collective wisdom it brings. Let's build something great together!
 
 ## Built With
 - [T3 Stack](https://create.t3.gg/)
