@@ -70,7 +70,8 @@ const Dash: NextPage = () => {
             description={link.description ?? ""}
             date={formattedDate}
             onAddDescription={updateLinkDescription}
-            onDeleteLink={refetch}          
+            onDeleteLink={refetch}  
+            clickcounter={link.clicks as number}        
           />
         </motion.div>
       );

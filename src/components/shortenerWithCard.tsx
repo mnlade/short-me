@@ -10,25 +10,37 @@ import { ToastAction } from "~/components/ui/toast";
 import Spinner from "./spinner";
 
 const ShortenerWithCard: React.FC = () => {
+  const clickdata = api.createLinkRouter.getLinkStats.useQuery();
+  const [clickCounterValue, setClickCounterValue] = useState(0); // default value
   const [bigurl, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [cards, setCards] = useState<JSX.Element[]>([
-    <DashCard
-      key="default"
-      avatarSrc="https://www.google.com/s2/favicons?sz=40&domain_url=github.com"
-      username="mnlade"
-      shorturl="LHIFYt4"
-      url="https://github.com/mnlade/short-me"
-    />,
-    <motion.div
-      key="skeleton1"
-      initial={{ opacity: 1, scale: 1 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.7 }}
-      transition={{ duration: 0.2 }}
-    >
-      <SkeletonDashCard />
-    </motion.div>,
+  const [cards, setCards] = useState<JSX.Element[]>([]);
+
+  useEffect(() => {
+    if (clickdata && clickdata.data && typeof clickdata.data.clicks === 'number') {
+      setClickCounterValue(clickdata.data.clicks as number);
+    }
+  }, [clickdata]);
+
+  useEffect(() => {
+    setCards([
+      <DashCard
+        key="default"
+        avatarSrc="https://www.google.com/s2/favicons?sz=40&domain_url=github.com"
+        username="mnlade"
+        shorturl="LHIFYt4"
+        url="https://github.com/mnlade/short-me"
+        clickcounter={clickCounterValue}
+      />,
+      <motion.div
+        key="skeleton1"
+        initial={{ opacity: 1, scale: 1 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.7 }}
+        transition={{ duration: 0.2 }}
+      >
+        <SkeletonDashCard />
+      </motion.div>,
     <motion.div
       key="skeleton2"
       initial={{ opacity: 1, scale: 1 }}
@@ -47,7 +59,8 @@ const ShortenerWithCard: React.FC = () => {
     >
       <SkeletonDashCard />
     </motion.div>,
-  ]);
+]);
+}, [clickCounterValue]);
 
   const createShortUrlMutation =
     api.createLinkRouter.createShortUrl.useMutation();
@@ -82,6 +95,7 @@ const ShortenerWithCard: React.FC = () => {
           username={createShortUrlMutation.data?.short ?? ""}
           shorturl={createShortUrlMutation.data?.short ?? ""}
           url={createShortUrlMutation.data?.url ?? ""}
+          clickcounter={createShortUrlMutation.data?.clicks as number}
         />
       </motion.div>
     );

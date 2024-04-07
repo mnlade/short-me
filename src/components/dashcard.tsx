@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
-import { MdContentCopy } from "react-icons/md";
+import { MdContentCopy, MdVisibility } from "react-icons/md";
 import { toast } from "./ui/use-toast";
 
 interface DashCardProps {
@@ -8,6 +8,7 @@ interface DashCardProps {
   username: string;
   shorturl: string;
   url: string;
+  clickcounter: number;
 }
 
 const DashCard: React.FC<DashCardProps> = ({
@@ -15,6 +16,7 @@ const DashCard: React.FC<DashCardProps> = ({
   username,
   shorturl,
   url,
+  clickcounter
 }) => {
   const copyToClipboard = () => {
     void navigator.clipboard.writeText(
@@ -31,8 +33,7 @@ const DashCard: React.FC<DashCardProps> = ({
         </Avatar>
       </div>
       <div className="col-span-4 row-span-2 flex flex-col p-3 pl-0">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
+      <div className="flex items-center">
             <a
               href={`https://short-me-omega.vercel.app/l/${shorturl}`}
               className="text-m overflow-hidden overflow-ellipsis whitespace-nowrap font-semibold"
@@ -46,10 +47,13 @@ const DashCard: React.FC<DashCardProps> = ({
                   description: "Your link has been copied to the clipboard!",
                 });
               }}
-              className="ml-2 cursor-pointer hover:scale-125"
-            />
+              className="ml-2 mr-2 cursor-pointer hover:scale-125"
+            />{" "}
+            <div className="flex flex-row items-center">
+              <MdVisibility className="mr-[2px]"/>
+              <p className="text-sm text-muted-foreground" >{clickcounter}</p>
+            </div> 
           </div>
-        </div>
         <p className="overflow-hidden overflow-ellipsis whitespace-nowrap text-sm text-muted-foreground">
           {url}
         </p>

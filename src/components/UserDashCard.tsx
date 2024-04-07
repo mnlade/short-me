@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MdModeEdit, MdDelete, MdContentCopy } from "react-icons/md";
+import { MdModeEdit, MdDelete, MdContentCopy, MdVisibility } from "react-icons/md";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
@@ -17,6 +17,7 @@ import { Label } from "./ui/label";
 import { api } from "~/utils/api";
 import { toast } from "./ui/use-toast";
 
+
 interface DashCardProps {
   avatarSrc: string;
   username: string;
@@ -28,6 +29,7 @@ interface DashCardProps {
   onDescriptionChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSaveChanges?: () => void;
   onDeleteLink?: () => void;
+  clickcounter: number;
 }
 
 const UserDashCard: React.FC<DashCardProps> = ({
@@ -38,6 +40,7 @@ const UserDashCard: React.FC<DashCardProps> = ({
   description: initialDescription,
   date,
   onDeleteLink,
+  clickcounter,
 }) => {
   const [description, setDescription] = useState(initialDescription);
   const [newDescription, setNewDescription] = useState(initialDescription);
@@ -109,15 +112,18 @@ const UserDashCard: React.FC<DashCardProps> = ({
                   description: "Your link has been copied to the clipboard!",
                 });
               }}
-              className="ml-2 cursor-pointer hover:scale-125"
+              className="ml-2 mr-2 cursor-pointer hover:scale-125"
             />{" "}
+            <div className="flex flex-row items-center">
+              <MdVisibility className="mr-[2px]"/>
+              <p className="text-sm text-muted-foreground" >{clickcounter}</p>
+            </div> 
           </div>
           <div className="flex items-start space-x-1">
-            {description && (
             <div>
               <Dialog>
                 <DialogTrigger asChild>
-                  <MdModeEdit className=" h-4 w-4 hover:scale-125 " />
+                  <MdModeEdit className="h-4 w-4 hover:scale-125 " />
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>
@@ -130,7 +136,6 @@ const UserDashCard: React.FC<DashCardProps> = ({
                   <div className="grid gap-4 py-4">
                     <div className="grid grid-cols-4 items-center gap-4">
                       <Label htmlFor="description">Description</Label>
-
                       <Input
                         id="description"
                         value={newDescription}
@@ -147,7 +152,6 @@ const UserDashCard: React.FC<DashCardProps> = ({
                 </DialogContent>
               </Dialog>
             </div>
-            )}
             <div>
               <Dialog>
                 <DialogTrigger asChild>

@@ -165,7 +165,16 @@ export const createLinkRouter = createTRPCRouter({
       }
     }),
 
-});
+    getLinkStats: publicProcedure
+    .query(async () => {
+      const input = { short: "LHIFYt4" }; // Fix: Define input as an object with the 'short' property
+      const data = await db.link.findFirst({
+        where: { short: input.short }, // Fix: Use the correct variable name 'input.short'
+      });
+      return data;
+    }),
+
+  });
     
 
 
