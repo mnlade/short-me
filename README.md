@@ -1,12 +1,13 @@
-# Create T3 App
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+# Short-Me
 
-## What's next? How do I make an app with this?
+This project is a URL shortener with QR code generation. It allows users to shorten long URLs and generate a QR code for easy sharing and scanning. Built with the T3 Stack, it leverages technologies like Next.js, NextAuth.js, Prisma, Tailwind CSS, tRPC, Turso and shadcn. This project is bootstrapped with `create-t3-app`, providing a solid foundation for further development and deployment.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Why I Made This
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+I created this project as part of my final year project for my degree and to gain proficiency in the technologies I've used, both within and outside of my studies. As a culmination of my academic journey and personal interest, this project allowed me to apply the knowledge and skills I've acquired throughout my studies and beyond. This project represents not only a personal accomplishment but also a testament to my dedication to continuous learning and growth in the field of Full-Stack Web Development.
+
+## Built With
 
 - [Next.js](https://nextjs.org)
 - [NextAuth.js](https://next-auth.js.org)
@@ -14,16 +15,67 @@ If you are not familiar with the different technologies used in this project, pl
 - [Drizzle](https://orm.drizzle.team)
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
+- [Turso](https://turso.tech/)
+- [shadcn](https://ui.shadcn.com/)
 
-## Learn More
+## Run in Local
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+1- Install dependencies using npm
+```
+npm install
+```
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+2- Copy the .env.example to .env and update the variables.
+```
+cp .env.example .env
+```
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+3- If you use windows you need to instal wsl to use turso
+```
+wsl --install
+```
 
-## How do I deploy this?
+4- Into wsl run and 
+```
+turso auth --hedless
+```
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+5- Copy into wsl terminal the export
+
+6- Create turso db
+```
+turso db create your-database-name
+```
+
+7- Get turso db info
+```
+turso db show your-database-name
+```
+
+8- Copy url info and paste into TURSO_DATABASE_URL="libsql://...." in env
+
+9- Get turso db tokens
+```
+turso db tokens create your-database-name
+```
+
+10- Copy url info and paste into TURSO_DATABASE_AUTH_TOKEN="" in env
+
+11- Migrate the db wih prisma
+```
+npm prisma migrate dev --name init
+```
+
+12- Link turso with prisma migrate file
+```
+turso db shell your-database-name <./prisma/migration/migrationpath_init/migration.sql
+```
+
+13- Start the development server
+```
+pnpm run dev
+```
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/mnlade/short-me/blob/main/LICENSE.md) file for details
+
