@@ -72,7 +72,8 @@ const Dash: NextPage = () => {
             onAddDescription={updateLinkDescription}
             onDeleteLink={refetch}  
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            clickcounter={link.clicks || 0}        
+            clickcounter={link.clicks || 0}
+            qrcodeimgstring={`https://www.google.com/s2/favicons?sz=40&domain=${link.url}`}       
           />
         </motion.div>
       );

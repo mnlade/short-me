@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { MdModeEdit, MdDelete, MdContentCopy, MdVisibility } from "react-icons/md";
+import {
+  MdModeEdit,
+  MdDelete,
+  MdContentCopy,
+  MdVisibility,
+  MdQrCode,
+} from "react-icons/md";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
@@ -16,7 +22,9 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { api } from "~/utils/api";
 import { toast } from "./ui/use-toast";
-
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import QRCode from "qrcode.react";
+import { Checkbox } from "./ui/checkbox";
 
 interface DashCardProps {
   avatarSrc: string;
@@ -30,6 +38,7 @@ interface DashCardProps {
   onSaveChanges?: () => void;
   onDeleteLink?: () => void;
   clickcounter: number;
+  qrcodeimgstring: string;
 }
 
 const UserDashCard: React.FC<DashCardProps> = ({
@@ -41,6 +50,7 @@ const UserDashCard: React.FC<DashCardProps> = ({
   date,
   onDeleteLink,
   clickcounter,
+  qrcodeimgstring,
 }) => {
   const [description, setDescription] = useState(initialDescription);
   const [newDescription, setNewDescription] = useState(initialDescription);
@@ -88,6 +98,8 @@ const UserDashCard: React.FC<DashCardProps> = ({
     );
   };
 
+  const [isChecked, setIsChecked] = useState(false);
+
   return (
     <div className="m-2 grid h-[71x] w-[370px] grid-cols-5 gap-4 rounded-lg border bg-card text-card-foreground shadow-md">
       <div className="col-span-1 row-span-2 m-auto flex items-center justify-center">
@@ -114,10 +126,55 @@ const UserDashCard: React.FC<DashCardProps> = ({
               }}
               className="ml-2 mr-2 cursor-pointer hover:scale-125"
             />{" "}
+            <Popover>
+              <PopoverTrigger asChild>
+                <button>
+                  <MdQrCode className="mr-2 cursor-pointer hover:scale-125" />
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-50">
+                <header className="font-semibold mb-2">Edit your QR code</header>
+                <Separator/>
+
+                <div className="flex flex-row items-center my-3">
+                  <p>Logo</p>
+                  <Checkbox
+                    className="ml-2"
+                    onCheckedChange={(isChecked) => {
+                      if (typeof isChecked === "boolean") {
+                        setIsChecked(isChecked);
+                      }
+                    }}
+                  />
+                </div>
+                {isChecked && (
+                  <QRCode
+                    value={`https://short-me-omega.vercel.app/l/${shorturl}`}
+                    size={200}
+                    fgColor="#000000"
+                    imageSettings={{
+                      src: qrcodeimgstring,
+                      width: 50,
+                      height: 50,
+                      excavate: false,
+                    }}
+                    style={{ border: "10px solid #ffffff" }}
+                  />
+                )}
+                {!isChecked && (
+                  <QRCode 
+                    value={`https://short-me-omega.vercel.app/l/${shorturl}`}
+                    size={200}
+                    fgColor="#000000"
+                    style={{ border: "10px solid #ffffff" }}
+                  />
+                )}
+              </PopoverContent>
+            </Popover>
             <div className="flex flex-row items-center">
-              <MdVisibility className="mr-[2px]"/>
-              <p className="text-sm text-muted-foreground" >{clickcounter}</p>
-            </div> 
+              <MdVisibility className="mr-[2px]" />
+              <p className="text-sm text-muted-foreground">{clickcounter}</p>
+            </div>
           </div>
           <div className="flex items-start space-x-1">
             <div>
@@ -186,41 +243,11 @@ const UserDashCard: React.FC<DashCardProps> = ({
         <Separator />
         <div className="col-span-5 row-span-2 h-[105px] overflow-y-auto whitespace-normal">
           {description ? (
-            <p className="p-3 text-sm text-muted-foreground">{description}</p>
+            <p className="p-3 text-sm ">{description}</p>
           ) : (
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button className="ml-3 mt-2" variant="outline">
-                  Add a new Description
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                  <DialogTitle>Edit Description</DialogTitle>
-                  <DialogDescription>
-                    Make changes to the description here. Click save when
-                    you&apos;re done.
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="description">Description</Label>
-
-                    <Input
-                      id="description"
-                      value={newDescription}
-                      onChange={(e) => setNewDescription(e.target.value)}
-                      className="col-span-3"
-                    />
-                  </div>
-                </div>
-                <DialogFooter>
-                  <Button type="submit" onClick={updateLinkDescription}>
-                    Save changes
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+            <p className="p-3 text-sm text-muted-foreground">
+              (Click the edit button to add a description.)
+            </p>
           )}
         </div>
         <div>
