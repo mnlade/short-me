@@ -17,8 +17,9 @@ const ShortenerWithCard: React.FC = () => {
   const [cards, setCards] = useState<JSX.Element[]>([]);
 
   useEffect(() => {
-    if (clickdata && clickdata.data && typeof clickdata.data.clicks === 'number') {
-      setClickCounterValue(clickdata.data.clicks as number);
+    if (clickdata && clickdata.data && typeof clickdata.data.clicks ) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      setClickCounterValue(clickdata.data.clicks);
     }
   }, [clickdata]);
 
