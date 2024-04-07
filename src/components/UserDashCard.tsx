@@ -113,13 +113,45 @@ const UserDashCard: React.FC<DashCardProps> = ({
             />{" "}
           </div>
           <div className="flex items-start space-x-1">
-            <div>
-              <MdModeEdit className="-mt-2 h-4 w-4 hover:scale-125 " />
-            </div>
+            {description && (
             <div>
               <Dialog>
                 <DialogTrigger asChild>
-                  <MdDelete className="-mt-2 h-4 w-4 hover:scale-125 " />
+                  <MdModeEdit className="-mt-2 h-4 w-4 hover:scale-125 " />
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Edit Description</DialogTitle>
+                    <DialogDescription>
+                      Make changes to the description here. Click save when
+                      you&apos;re done.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="description">Description</Label>
+
+                      <Input
+                        id="description"
+                        value={newDescription}
+                        onChange={(e) => setNewDescription(e.target.value)}
+                        className="col-span-3"
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button type="submit" onClick={updateLinkDescription}>
+                      Save changes
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            </div>
+            )}
+            <div>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <MdDelete className="h-4 w-4 hover:scale-125 " />
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>
@@ -129,7 +161,11 @@ const UserDashCard: React.FC<DashCardProps> = ({
                     </DialogDescription>
                   </DialogHeader>
                   <DialogFooter>
-                    <Button variant={"destructive"} type="submit" onClick={deleteLink}>
+                    <Button
+                      variant={"destructive"}
+                      type="submit"
+                      onClick={deleteLink}
+                    >
                       Delete
                     </Button>
                   </DialogFooter>
