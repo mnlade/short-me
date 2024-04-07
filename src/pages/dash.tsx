@@ -1,5 +1,5 @@
 import { type NextPage } from "next";
-import UserHeader from "~/components/header";
+import UserHeader from "~/components/UserHeader";
 import { Separator } from "~/components/ui/separator";
 import Shortener from "~/components/shortener";
 import UserDashCard from "~/components/UserDashCard";
@@ -18,6 +18,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "~/components/footer";
 import { useProtectedView } from "~/hooks/useProtectedView";
+import { UserSkeletonDashCard } from "~/components/userSkeletonDashcard";
 
 const Dash: NextPage = () => {
   const { status } = useProtectedView("/login");
@@ -90,10 +91,20 @@ const Dash: NextPage = () => {
       </div>
       <Separator />
       <div className=" mx-auto w-full max-w-[1400px] pb-20">
-        <div className="flex  flex-wrap items-center justify-center gap-4 overflow-hidden">
-          {isLoading || status ==="loading" ? (
-            <Spinner />
-          ) : error ? (
+      <div className="flex  flex-wrap items-center justify-center gap-4 overflow-hidden">
+  {isLoading || status ==="loading" ? (
+    Array.from({ length: itemsPerPage }).map((_, index) => (
+      <motion.div
+        className="p-4"
+        key={index}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.0 }}
+      >
+        <UserSkeletonDashCard />
+      </motion.div>
+    ))
+  ) : error ? (
             <p>Error: {error.message}</p>
           ) : (
             <AnimatePresence>{cards}</AnimatePresence>

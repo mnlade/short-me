@@ -17,6 +17,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogFooter,
+  DialogClose,
 } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -204,15 +205,11 @@ const UserDashCard: React.FC<DashCardProps> = ({
                     </div>
                   </div>
                   <DialogFooter>
-                    <Button
-                      type="submit"
-                      onClick={() => {
-                        updateLinkDescription();
-                        close();
-                      }}
-                    >
-                      Save changes
-                    </Button>
+                    <DialogClose>
+                      <Button type="submit" onClick={updateLinkDescription}>
+                        Save changes
+                      </Button>
+                    </DialogClose>
                   </DialogFooter>
                 </DialogContent>
               </Dialog>
@@ -230,13 +227,15 @@ const UserDashCard: React.FC<DashCardProps> = ({
                     </DialogDescription>
                   </DialogHeader>
                   <DialogFooter>
-                    <Button
-                      variant={"destructive"}
-                      type="submit"
-                      onClick={deleteLink}
-                    >
-                      Delete
-                    </Button>
+                    <DialogClose>
+                      <Button
+                        variant={"destructive"}
+                        type="submit"
+                        onClick={deleteLink}
+                      >
+                        Delete
+                      </Button>
+                    </DialogClose>
                   </DialogFooter>
                 </DialogContent>
               </Dialog>

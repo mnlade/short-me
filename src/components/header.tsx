@@ -29,8 +29,8 @@ const Header: React.FC = () => {
             />
           </div>
         </Link>
-        <div className="flex items-center space-x-3">
-        <Button variant={"outline"} onClick={handleDashboardRedirect}>Dashboard</Button>
+        <div className="flex items-center space-x-2">
+        <Button variant={"outline"} onClick={handleDashboardRedirect}>Dash</Button>
           <ModeToggle />
           <AuthShowcase />          
         </div>
