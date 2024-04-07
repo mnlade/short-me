@@ -117,7 +117,7 @@ const UserDashCard: React.FC<DashCardProps> = ({
             <div>
               <Dialog>
                 <DialogTrigger asChild>
-                  <MdModeEdit className="-mt-2 h-4 w-4 hover:scale-125 " />
+                  <MdModeEdit className=" h-4 w-4 hover:scale-125 " />
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>
