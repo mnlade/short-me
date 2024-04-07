@@ -99,7 +99,7 @@ const Dash: NextPage = () => {
         key={index}
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.0 }}
+        transition={{ duration: 0.2 }}
       >
         <UserSkeletonDashCard />
       </motion.div>
