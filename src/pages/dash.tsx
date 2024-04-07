@@ -162,7 +162,7 @@ const Dash: NextPage = () => {
           </Pagination>
         </div>
       </div>
-      <div className=" fixed bottom-0 w-full bg-white/60 text-sm text-muted-foreground backdrop-blur-sm animate-in fade-in-25 dark:bg-neutral-900/60">
+      <div className=" fixed bottom-0 w-full  text-sm text-muted-foreground backdrop-blur-sm animate-in fade-in-25">
         <Separator />
         <Footer />
       </div>
