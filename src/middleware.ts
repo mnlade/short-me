@@ -16,6 +16,22 @@ export async function middleware(req: NextRequest) {
 
   // Check if data exists and contains a URL:
   if (data?.url) {
+    // Update the click counter:
+    const updatedData = void db.link.update({
+      where: {
+        short: slug,
+      },
+      data: {
+        clicks: {
+          increment: 1,
+        },
+      },
+    });
+
+    if (!updatedData) {
+      console.log(`Failed to update clicks for slug: ${slug}`);
+    }
+
     // Redirect to the URL associated with the slug:
     return NextResponse.redirect(new URL(data.url));
   } else {
@@ -25,4 +41,4 @@ export async function middleware(req: NextRequest) {
 }
 export const config = {
     matcher: "/l/:slug*",
-  };
+};
