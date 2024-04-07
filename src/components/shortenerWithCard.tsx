@@ -96,8 +96,9 @@ const ShortenerWithCard: React.FC = () => {
           username={createShortUrlMutation.data?.short ?? ""}
           shorturl={createShortUrlMutation.data?.short ?? ""}
           url={createShortUrlMutation.data?.url ?? ""}
-          clickcounter={createShortUrlMutation.data!.clicks as number}
-          />
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          clickcounter={createShortUrlMutation.data?.clicks ?? 0}
+        />
       </motion.div>
     );
 
