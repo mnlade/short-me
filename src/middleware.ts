@@ -17,7 +17,7 @@ export async function middleware(req: NextRequest) {
   // Check if data exists and contains a URL:
   if (data?.url) {
     // Update the click counter:
-    const updatedData = void db.link.update({
+    const updatedData = await db.link.update({
       where: {
         short: slug,
       },
