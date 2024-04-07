@@ -27,6 +27,7 @@ model link {
     createdAt   DateTime @default(now())
     createdBy   User?    @relation(fields: [creatorId], references: [id])
     creatorId   String
+    clicks      Int      @default(0)
 
     @@index(short)
 }
