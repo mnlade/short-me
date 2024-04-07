@@ -8,7 +8,7 @@ This project is a URL shortener with QR code generation. It allows users to shor
 I created this project as part of my final year project for my degree and to gain proficiency in the technologies I've used, both within and outside of my studies. As a culmination of my academic journey and personal interest, this project allowed me to apply the knowledge and skills I've acquired throughout my studies and beyond. This project represents not only a personal accomplishment but also a testament to my dedication to continuous learning and growth in the field of Full-Stack Web Development.
 
 ## Built With
-
+- [T3 Stack](https://create.t3.gg/)
 - [Next.js](https://nextjs.org)
 - [NextAuth.js](https://next-auth.js.org)
 - [Prisma](https://prisma.io)
