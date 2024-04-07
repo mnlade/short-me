@@ -182,9 +182,7 @@ const UserDashCard: React.FC<DashCardProps> = ({
             <div>
               <Dialog>
                 <DialogTrigger asChild>
-                  <button>
-                    <MdModeEdit className="h-4 w-4 hover:scale-125 " />
-                  </button>
+                  <MdModeEdit className="h-4 w-4 hover:scale-125 " />
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                   <DialogHeader>
@@ -206,7 +204,13 @@ const UserDashCard: React.FC<DashCardProps> = ({
                     </div>
                   </div>
                   <DialogFooter>
-                    <Button type="submit" onClick={updateLinkDescription}>
+                    <Button
+                      type="submit"
+                      onClick={() => {
+                        updateLinkDescription();
+                        close();
+                      }}
+                    >
                       Save changes
                     </Button>
                   </DialogFooter>
