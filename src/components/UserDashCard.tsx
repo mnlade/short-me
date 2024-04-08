@@ -113,6 +113,7 @@ const UserDashCard: React.FC<DashCardProps> = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <a
+              target="_blank"
               href={`https://short-me-omega.vercel.app/l/${shorturl}`}
               className="text-m overflow-hidden overflow-ellipsis whitespace-nowrap font-semibold"
             >

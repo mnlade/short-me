@@ -16,7 +16,7 @@ const DashCard: React.FC<DashCardProps> = ({
   username,
   shorturl,
   url,
-  clickcounter
+  clickcounter,
 }) => {
   const copyToClipboard = () => {
     void navigator.clipboard.writeText(
@@ -33,27 +33,28 @@ const DashCard: React.FC<DashCardProps> = ({
         </Avatar>
       </div>
       <div className="col-span-4 row-span-2 flex flex-col p-3 pl-0">
-      <div className="flex items-center">
-            <a
-              href={`https://short-me-omega.vercel.app/l/${shorturl}`}
-              className="text-m overflow-hidden overflow-ellipsis whitespace-nowrap font-semibold"
-            >
-              {shorturl}
-            </a>
-            <MdContentCopy
-              onClick={() => {
-                copyToClipboard();
-                toast({
-                  description: "Your link has been copied to the clipboard!",
-                });
-              }}
-              className="ml-2 mr-2 cursor-pointer hover:scale-125"
-            />{" "}
-            <div className="flex flex-row items-center">
-              <MdVisibility className="mr-[2px]"/>
-              <p className="text-sm text-muted-foreground" >{clickcounter}</p>
-            </div> 
+        <div className="flex items-center">
+          <a
+            target="_blank"
+            href={`https://short-me-omega.vercel.app/l/${shorturl}`}
+            className="text-m overflow-hidden overflow-ellipsis whitespace-nowrap font-semibold"
+          >
+            {shorturl}
+          </a>
+          <MdContentCopy
+            onClick={() => {
+              copyToClipboard();
+              toast({
+                description: "Your link has been copied to the clipboard!",
+              });
+            }}
+            className="ml-2 mr-2 cursor-pointer hover:scale-125"
+          />{" "}
+          <div className="flex flex-row items-center">
+            <MdVisibility className="mr-[2px]" />
+            <p className="text-sm text-muted-foreground">{clickcounter}</p>
           </div>
+        </div>
         <p className="overflow-hidden overflow-ellipsis whitespace-nowrap text-sm text-muted-foreground">
           {url}
         </p>
