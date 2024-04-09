@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="flex flex-row justify-between py-4 px-2 mx-2">
+    <footer className="mx-2 flex flex-row justify-between px-2 py-4">
       <p className="text-center text-sm text-muted-foreground">
         Made With ❤️ by Manuel Adé
       </p>
