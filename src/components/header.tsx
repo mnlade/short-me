@@ -3,18 +3,18 @@ import AuthShowcase from "./authShowCase";
 import { ModeToggle } from "./ModeToggle";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import { Button } from "./ui/button";
 
 const Header: React.FC = () => {
   const router = useRouter();
 
   const handleDashboardRedirect = () => {
-    void router.push('/dash');
+    void router.push("/dash");
   };
   return (
     <header>
-      <div className="flex items-center justify-between py-3 px-4 lg:mx-80 md:mx-20 sm:mx-2">
+      <div className="mx-2 flex items-center justify-between px-4 py-3 sm:mx-2 md:mx-2 2xl:mx-80">
         <Link href="/">
           <div className="flex items-center">
             <h1 className="text-2xl font-extrabold tracking-tight">
@@ -30,9 +30,11 @@ const Header: React.FC = () => {
           </div>
         </Link>
         <div className="flex items-center space-x-2">
-        <Button variant={"outline"} onClick={handleDashboardRedirect}>Dash</Button>
+          <Button variant={"outline"} onClick={handleDashboardRedirect}>
+            Dash
+          </Button>
           <ModeToggle />
-          <AuthShowcase />          
+          <AuthShowcase />
         </div>
       </div>
     </header>

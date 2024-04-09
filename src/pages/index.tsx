@@ -4,7 +4,7 @@ import Hero from "~/components/hero";
 import Header from "~/components/header";
 import { Separator } from "~/components/ui/separator";
 import Footer from "~/components/footer";
-
+import LandingSection from "~/components/landingsection";
 export default function Home() {
   return (
     <>
@@ -21,9 +21,10 @@ export default function Home() {
         <Header />
         <Separator />
 
-        <div className="container flex flex-col items-center justify-center gap-4 px-4 py-8 pb-20 md:py-16 lg:py-16 ">
+        <div className="container flex flex-col items-center justify-center gap-4 px-4 py-8 pb-20  ">
           <Hero />
           <ShortenerWithCard />
+          <LandingSection/>
         </div>
         <div className=" fixed bottom-0 w-full text-sm text-muted-foreground backdrop-blur-sm animate-in fade-in-25">
           <Separator />
