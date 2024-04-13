@@ -42,7 +42,7 @@ export default function UserIcon() {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        // Aquí puedes poner lo que quieras mostrar mientras se carga sessionData
+     
         <Avatar className="h-10 w-10">
               <AvatarFallback></AvatarFallback>
             </Avatar>

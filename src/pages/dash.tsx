@@ -18,10 +18,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import Footer from "~/components/footer";
 import { useProtectedView } from "~/hooks/useProtectedView";
 import { UserSkeletonDashCard } from "~/components/userSkeletonDashcard";
+import Head from "next/head";
 
 const Dash: NextPage = () => {
   const { status } = useProtectedView("/login");
-  
+
   const { data, error, isLoading, refetch } =
     api.createLinkRouter.getLinksByUser.useQuery();
   const [currentPage, setCurrentPage] = useState(1);
@@ -70,10 +71,10 @@ const Dash: NextPage = () => {
             description={link.description ?? ""}
             date={formattedDate}
             onAddDescription={updateLinkDescription}
-            onDeleteLink={refetch}  
+            onDeleteLink={refetch}
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             clickcounter={link.clicks || 0}
-            qrcodeimgstring={`https://www.google.com/s2/favicons?sz=40&domain=${link.url}`}       
+            qrcodeimgstring={`https://www.google.com/s2/favicons?sz=40&domain=${link.url}`}
           />
         </motion.div>
       );
@@ -83,6 +84,10 @@ const Dash: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Dashboard</title>
+        <link rel="icon" href="/logoshortme.png" />
+      </Head>
       <UserHeader />
       <Separator />
       <div className="gap-4 px-4 py-8 ">
@@ -90,20 +95,20 @@ const Dash: NextPage = () => {
       </div>
       <Separator />
       <div className=" mx-auto w-full max-w-[1400px] pb-20">
-      <div className="flex  flex-wrap items-center justify-center gap-4 overflow-hidden">
-  {isLoading || status ==="loading" ? (
-    Array.from({ length: itemsPerPage }).map((_, index) => (
-      <motion.div
-        className="p-4"
-        key={index}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.2 }}
-      >
-        <UserSkeletonDashCard />
-      </motion.div>
-    ))
-  ) : error ? (
+        <div className="flex  flex-wrap items-center justify-center gap-4 overflow-hidden">
+          {isLoading || status === "loading" ? (
+            Array.from({ length: itemsPerPage }).map((_, index) => (
+              <motion.div
+                className="p-4"
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2 }}
+              >
+                <UserSkeletonDashCard />
+              </motion.div>
+            ))
+          ) : error ? (
             <p>Error: {error.message}</p>
           ) : (
             <AnimatePresence>{cards}</AnimatePresence>
